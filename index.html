@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人主页 · 陌筏</title>
+    <title>Nwely（陌筏）の 个人主页</title>
+    <!-- SEO 关键词（用户不可见） -->
+    <meta name="keywords" content="陌筏, nwely, magic, new_weilai, new-weilai, 魔法, 新未来">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* 现有样式保持不变，仅添加问候弹窗样式 */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; }
         body {
             min-height: 100vh;
@@ -328,7 +331,7 @@
             border-top-color: rgba(150,150,180,0.2);
         }
 
-        /* 按钮容器 - 用于将两个按钮固定在右下角，且位于卡片之上 */
+        /* 按钮容器 */
         .fixed-buttons {
             position: fixed;
             bottom: 20px;
@@ -365,11 +368,45 @@
         body.dark-mode .fixed-btn:hover {
             background: rgba(60,60,80,0.9);
         }
+
+        /* 问候弹窗样式 */
+        .greeting-toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            z-index: 2000;
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: fadeInOut 3s ease-in-out forwards;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        body.dark-mode .greeting-toast {
+            background: rgba(30, 30, 40, 0.9);
+            border-color: rgba(150,150,180,0.3);
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+            10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+        }
     </style>
     <script src="config.js"></script>
     <script src="hitokoto.js"></script>
 </head>
 <body>
+    <!-- 问候弹窗（由Vue控制） -->
+    <div v-if="showGreeting" class="greeting-toast">{{ greetingText }}</div>
+
     <div class="home-card" id="app">
         <!-- 固定在右下角的按钮容器 -->
         <div class="fixed-buttons">
@@ -495,9 +532,18 @@
                     currentBgImage: '',
                     bgInterval: null,
                     isRefreshing: false,
-                    isDark: false
+                    isDark: false,
+                    showGreeting: true,       // 控制问候弹窗显示
+                    greetingText: ''           // 问候语文本
                 },
                 created() {
+                    // 生成问候语
+                    this.greetingText = this.getGreeting();
+                    // 3秒后关闭问候弹窗
+                    setTimeout(() => {
+                        this.showGreeting = false;
+                    }, 3000);
+
                     // 读取深色模式偏好
                     const savedDark = localStorage.getItem('darkMode');
                     this.isDark = savedDark === 'true';
@@ -520,6 +566,23 @@
                     if (this.bgInterval) clearInterval(this.bgInterval);
                 },
                 methods: {
+                    // 根据当前时间生成问候语
+                    getGreeting() {
+                        const hour = new Date().getHours();
+                        let greeting;
+                        if (hour >= 5 && hour < 9) {
+                            greeting = '早上好';
+                        } else if (hour >= 9 && hour < 11) {
+                            greeting = '上午好';
+                        } else if (hour >= 11 && hour < 13) {
+                            greeting = '中午好';
+                        } else if (hour >= 13 && hour < 18) {
+                            greeting = '下午好';
+                        } else {
+                            greeting = '晚上好';
+                        }
+                        return `${greeting}，欢迎来到我的主页`;
+                    },
                     applyDarkMode() {
                         if (this.isDark) {
                             document.body.classList.add('dark-mode');

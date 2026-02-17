@@ -124,7 +124,7 @@ window.siteConfig = {
                 { 
                     name: "个人主页github",   //标题
                     description: "这个个人主页的github",     //简介
-                    url: "https://github.com/new-weilai/homepage"    //链接
+                    url: "https://github.com/new-weilai/home"    //链接
                 },
                 { 
                     name: "博客", 
@@ -167,34 +167,13 @@ window.siteConfig = {
         { 
             name: "友情链接", 
             icon: "fas fa-link", 
-            cards: []
-        /*
+            cards: [
                 { 
-                    name: "", 
-                    description: "", 
-                    url: "https://"
-                },
-                { 
-                    name: "", 
-                    description: "", 
-                    url: "https://"
-                },
-                { 
-                    name: "", 
-                    description: "", 
-                    url: "https://"
-                },
-                { 
-                    name: "", 
-                    description: "", 
-                    url: "https://"
-                },
-                { 
-                    name: "", 
-                    description: "", 
-                    url: "https://"
-                },
-        */
+                    name: "ColorYi 喵~ の个人主页", 
+                    description: "一个建立于21世纪的小站，存活于互联网的边缘", 
+                    url: "https://coloryi.top"
+                }
+            ]
         }
     ]
 };
