@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* 现有样式保持不变，仅添加问候弹窗样式 */
+        /* 所有样式保持不变（与之前相同） */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; }
         body {
             min-height: 100vh;
@@ -385,7 +385,7 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             z-index: 2000;
             border: 1px solid rgba(255,255,255,0.2);
-            animation: fadeInOut 3s ease-in-out forwards;
+            animation: fadeInOut 7s ease-in-out forwards;
             pointer-events: none;
             white-space: nowrap;
         }
@@ -533,29 +533,34 @@
                     bgInterval: null,
                     isRefreshing: false,
                     isDark: false,
-                    showGreeting: true,       // 控制问候弹窗显示
-                    greetingText: ''           // 问候语文本
+                    showGreeting: false,       // 初始不显示，等待加载完成后显示
+                    greetingText: ''            // 问候语文本
                 },
                 created() {
-                    // 生成问候语
-                    this.greetingText = this.getGreeting();
-                    // 3秒后关闭问候弹窗
-                    setTimeout(() => {
-                        this.showGreeting = false;
-                    }, 3000);
-
                     // 读取深色模式偏好
                     const savedDark = localStorage.getItem('darkMode');
                     this.isDark = savedDark === 'true';
                     this.applyDarkMode();
 
+                    // 初始化其他不需要等待的功能
                     this.initHitokoto();
                     this.startHitokotoTimer();
                     this.updateTime();
                     this.startTimeClock();
-                    this.fetchWeather();
-                    this.loadPlaylist(this.config.playlistId);
                     this.initBackground();
+
+                    // 创建天气和歌单的 Promise
+                    const weatherPromise = this.fetchWeather().catch(() => {});
+                    const playlistPromise = this.loadPlaylist(this.config.playlistId).catch(() => {});
+
+                    // 等待两者都完成（无论成功失败）后显示问候弹窗
+                    Promise.allSettled([weatherPromise, playlistPromise]).then(() => {
+                        this.showGreeting = true;
+                        this.greetingText = this.getGreeting();
+                        setTimeout(() => {
+                            this.showGreeting = false;
+                        }, 7000); // 7秒后关闭
+                    });
                 },
                 mounted() {
                     this.audioElement = new Audio();
