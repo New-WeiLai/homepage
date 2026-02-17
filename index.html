@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nwely（陌筏）の 个人主页</title>
+    <title>个人主页 · 陌筏</title>
     <!-- SEO 关键词（用户不可见） -->
     <meta name="keywords" content="陌筏, nwely, magic, new_weilai, new-weilai, 魔法, 新未来">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* 所有样式保持不变（与之前相同） */
+        /* ========== 全局样式（保持不变）========== */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; }
         body {
             min-height: 100vh;
@@ -36,9 +36,7 @@
             pointer-events: none;
             transition: background 0.3s ease;
         }
-        body.dark-mode::before {
-            background: rgba(0, 0, 0, 0.3);
-        }
+        body.dark-mode::before { background: rgba(0, 0, 0, 0.3); }
 
         .home-card {
             max-width: 1100px;
@@ -69,20 +67,14 @@
             box-shadow: 0 10px 20px rgba(0,20,40,0.2);
             background: #b0c7de;
         }
-        body.dark-mode .avatar {
-            border-color: #444;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
+        body.dark-mode .avatar { border-color: #444; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
         .name {
             font-size: 2.2rem;
             font-weight: 700;
             color: #1e2b3f;
             text-shadow: 2px 2px 8px rgba(255,255,255,0.7);
         }
-        body.dark-mode .name {
-            color: #e0e0f0;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-        }
+        body.dark-mode .name { color: #e0e0f0; text-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
 
         .hitokoto-panel {
             background: rgba(255,255,255,0.4);
@@ -103,7 +95,6 @@
             color: #d0d0e0;
             box-shadow: inset 0 1px 4px rgba(255,255,255,0.1), 0 8px 12px rgba(0,0,0,0.3);
         }
-
         .hitokoto-text { flex: 1; font-style: italic; padding-right: 20px; }
         .hitokoto-from {
             font-size: 0.95rem;
@@ -113,10 +104,7 @@
             padding-left: 18px;
             font-weight: 400;
         }
-        body.dark-mode .hitokoto-from {
-            color: #a0a0c0;
-            border-left-color: #6a6a8a;
-        }
+        body.dark-mode .hitokoto-from { color: #a0a0c0; border-left-color: #6a6a8a; }
 
         .info-music-row { display: flex; gap: 24px; margin-bottom: 30px; flex-wrap: wrap; }
         .weather-time-card {
@@ -135,7 +123,6 @@
             border-color: rgba(150, 150, 180, 0.5);
             box-shadow: 0 15px 25px rgba(0,0,0,0.3);
         }
-
         .weather-info { display: flex; align-items: center; gap: 10px; font-size: 1.8rem; font-weight: 600; color: #1a2b41; margin-bottom: 12px; }
         body.dark-mode .weather-info { color: #d0d0f0; }
         .weather-info i { font-size: 2.2rem; color: #3a6ea5; }
@@ -147,16 +134,14 @@
             padding: 4px 12px;
             border-radius: 40px;
         }
-        body.dark-mode .weather-desc {
-            background: rgba(80,80,100,0.3);
-            color: #ccc;
-        }
+        body.dark-mode .weather-desc { background: rgba(80,80,100,0.3); color: #ccc; }
 
         .time-block { font-size: 2.5rem; font-weight: 700; color: #0f263b; }
         body.dark-mode .time-block { color: #e0e0f0; }
         .time-block .date { font-size: 1.1rem; font-weight: 500; color: #2e4b6e; margin-top: 6px; }
         body.dark-mode .time-block .date { color: #a0a0c0; }
 
+        /* 音乐播放器 */
         .music-player-card {
             flex: 2;
             min-width: 300px;
@@ -169,11 +154,7 @@
             color: white;
             transition: all 0.3s ease;
         }
-        body.dark-mode .music-player-card {
-            background: rgba(20, 20, 30, 0.3);
-            border-color: rgba(150,150,180,0.3);
-        }
-
+        body.dark-mode .music-player-card { background: rgba(20, 20, 30, 0.3); border-color: rgba(150,150,180,0.3); }
         .player-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
         .player-header i { font-size: 1.8rem; color: #d9edff; }
         body.dark-mode .player-header i { color: #aac; }
@@ -184,7 +165,6 @@
             padding: 6px 18px;
             border-radius: 40px;
         }
-
         .now-playing { background: rgba(255,255,255,0.1); border-radius: 30px; padding: 16px; margin-bottom: 20px; }
         .song-title { font-weight: 700; font-size: 1.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .song-artist { font-size: 0.9rem; opacity: 0.8; margin: 4px 0 8px; }
@@ -200,7 +180,6 @@
             border: 1px solid rgba(255,255,255,0.2);
             white-space: pre-line;
         }
-
         .controls { display: flex; align-items: center; justify-content: space-around; margin: 16px 0 10px; }
         .controls i { font-size: 1.9rem; cursor: pointer; color: white; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
         .controls i:active { transform: scale(0.9); }
@@ -217,6 +196,7 @@
         .playlist-item:hover { background: rgba(255,255,255,0.15); }
         .playlist-index { width: 24px; font-size: 0.9rem; opacity: 0.7; }
 
+        /* 抽屉样式 */
         .drawer-wrapper { margin-top: 20px; }
         .drawer-handle {
             text-align: center;
@@ -232,11 +212,7 @@
             border: 1px solid rgba(255,255,255,0.8);
             transition: all 0.3s ease;
         }
-        body.dark-mode .drawer-handle {
-            color: #ccc;
-            background: rgba(40,40,50,0.3);
-            border-color: rgba(150,150,180,0.5);
-        }
+        body.dark-mode .drawer-handle { color: #ccc; background: rgba(40,40,50,0.3); border-color: rgba(150,150,180,0.5); }
         .drawer-handle:hover { background: rgba(255,255,255,0.6); }
         body.dark-mode .drawer-handle:hover { background: rgba(80,80,100,0.6); }
         .drawer-content {
@@ -250,10 +226,7 @@
             margin-top: 12px;
             border: 1px solid rgba(255,255,255,0.5);
         }
-        body.dark-mode .drawer-content {
-            background: rgba(30, 30, 40, 0.7);
-            border-color: rgba(100,100,120,0.5);
-        }
+        body.dark-mode .drawer-content { background: rgba(30, 30, 40, 0.7); border-color: rgba(100,100,120,0.5); }
         .drawer-content.open {
             max-height: 800px;
             padding: 22px 22px 28px;
@@ -299,9 +272,7 @@
             box-shadow: 0 15px 25px rgba(0,0,0,0.1);
             background: white;
         }
-        body.dark-mode .drawer-card:hover {
-            background: rgba(60, 60, 80, 0.9);
-        }
+        body.dark-mode .drawer-card:hover { background: rgba(60, 60, 80, 0.9); }
 
         .card-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; margin-right: 14px; flex-shrink: 0; }
         .card-icon i { font-size: 2rem; }
@@ -326,10 +297,7 @@
             border-top: 1px solid rgba(58,94,122,0.2);
             padding-top: 15px;
         }
-        body.dark-mode .footer-note {
-            color: #a0a0c0;
-            border-top-color: rgba(150,150,180,0.2);
-        }
+        body.dark-mode .footer-note { color: #a0a0c0; border-top-color: rgba(150,150,180,0.2); }
 
         /* 按钮容器 */
         .fixed-buttons {
@@ -355,21 +323,10 @@
             font-size: 1.3rem;
             transition: all 0.3s ease;
         }
-        .fixed-btn:hover {
-            transform: scale(1.1);
-            background: white;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-        }
-        body.dark-mode .fixed-btn {
-            background: rgba(40,40,55,0.8);
-            border-color: rgba(150,150,180,0.5);
-            color: #e0e0f0;
-        }
-        body.dark-mode .fixed-btn:hover {
-            background: rgba(60,60,80,0.9);
-        }
+        .fixed-btn:hover { transform: scale(1.1); background: white; box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
+        body.dark-mode .fixed-btn { background: rgba(40,40,55,0.8); border-color: rgba(150,150,180,0.5); color: #e0e0f0; }
 
-        /* 问候弹窗样式 */
+        /* 问候弹窗 */
         .greeting-toast {
             position: fixed;
             top: 20px;
@@ -389,10 +346,7 @@
             pointer-events: none;
             white-space: nowrap;
         }
-        body.dark-mode .greeting-toast {
-            background: rgba(30, 30, 40, 0.9);
-            border-color: rgba(150,150,180,0.3);
-        }
+        body.dark-mode .greeting-toast { background: rgba(30, 30, 40, 0.9); border-color: rgba(150,150,180,0.3); }
         @keyframes fadeInOut {
             0% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
             10% { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -404,11 +358,9 @@
     <script src="hitokoto.js"></script>
 </head>
 <body>
-    <!-- 问候弹窗（由Vue控制） -->
     <div v-if="showGreeting" class="greeting-toast">{{ greetingText }}</div>
 
     <div class="home-card" id="app">
-        <!-- 固定在右下角的按钮容器 -->
         <div class="fixed-buttons">
             <div class="fixed-btn" @click="toggleDarkMode" :title="isDark ? '切换到浅色模式' : '切换到深色模式'">
                 <i :class="isDark ? 'fas fa-sun' : 'fas fa-moon'"></i>
@@ -446,8 +398,7 @@
                 <div class="now-playing">
                     <div class="song-title">{{ currentSong.name }}</div>
                     <div class="song-artist">{{ currentSong.artist }}</div>
-                    <div class="lyrics-box" v-if="currentLyrics">{{ currentLyrics }}</div>
-                    <div class="lyrics-box" v-else>✨ 暂无歌词</div>
+                    <div class="lyrics-box">{{ currentLyrics }}</div>
                 </div>
                 <div class="controls">
                     <i class="fas fa-step-backward" @click="prevSong"></i>
@@ -506,7 +457,7 @@
     <script>
         (function() {
             if (!window.siteConfig) {
-                document.body.innerHTML = '<h2 style="color:red; text-align:center;">配置文件 config.js 加载失败，请检查文件是否存在及语法正确性。</h2>';
+                document.body.innerHTML = '<h2 style="color:red; text-align:center;">配置文件 config.js 加载失败</h2>';
                 return;
             }
 
@@ -523,7 +474,7 @@
                     currentDate: '',
                     playlist: [],
                     currentSong: { id: 0, name: '未知歌曲', artist: '' },
-                    currentLyrics: '',
+                    currentLyrics: '✨ 暂无歌词',
                     isPlaying: false,
                     audioElement: null,
                     songIndex: 0,
@@ -533,73 +484,64 @@
                     bgInterval: null,
                     isRefreshing: false,
                     isDark: false,
-                    showGreeting: false,       // 初始不显示，等待加载完成后显示
-                    greetingText: ''            // 问候语文本
+                    showGreeting: false,
+                    greetingText: ''
                 },
                 created() {
-                    // 读取深色模式偏好
                     const savedDark = localStorage.getItem('darkMode');
                     this.isDark = savedDark === 'true';
                     this.applyDarkMode();
 
-                    // 初始化其他不需要等待的功能
                     this.initHitokoto();
                     this.startHitokotoTimer();
                     this.updateTime();
                     this.startTimeClock();
                     this.initBackground();
 
-                    // 创建天气和歌单的 Promise
                     const weatherPromise = this.fetchWeather().catch(() => {});
                     const playlistPromise = this.loadPlaylist(this.config.playlistId).catch(() => {});
-
-                    // 等待两者都完成（无论成功失败）后显示问候弹窗
                     Promise.allSettled([weatherPromise, playlistPromise]).then(() => {
                         this.showGreeting = true;
                         this.greetingText = this.getGreeting();
-                        setTimeout(() => {
-                            this.showGreeting = false;
-                        }, 7000); // 7秒后关闭
+                        setTimeout(() => { this.showGreeting = false; }, 7000);
                     });
                 },
                 mounted() {
                     this.audioElement = new Audio();
                     this.audioElement.addEventListener('ended', this.nextSong);
+                    this.audioElement.addEventListener('error', (e) => {
+                        console.error('音频播放错误', e);
+                        this.isPlaying = false;
+                        alert('无法播放该歌曲，可能URL无效或网络问题');
+                    });
                 },
                 beforeDestroy() {
                     if (this.audioElement) this.audioElement.removeEventListener('ended', this.nextSong);
                     if (this.bgInterval) clearInterval(this.bgInterval);
                 },
                 methods: {
-                    // 根据当前时间生成问候语
+                    // ===== 问候弹窗 =====
                     getGreeting() {
                         const hour = new Date().getHours();
                         let greeting;
-                        if (hour >= 5 && hour < 9) {
-                            greeting = '早上好';
-                        } else if (hour >= 9 && hour < 11) {
-                            greeting = '上午好';
-                        } else if (hour >= 11 && hour < 13) {
-                            greeting = '中午好';
-                        } else if (hour >= 13 && hour < 18) {
-                            greeting = '下午好';
-                        } else {
-                            greeting = '晚上好';
-                        }
+                        if (hour >= 5 && hour < 9) greeting = '早上好';
+                        else if (hour >= 9 && hour < 11) greeting = '上午好';
+                        else if (hour >= 11 && hour < 13) greeting = '中午好';
+                        else if (hour >= 13 && hour < 18) greeting = '下午好';
+                        else greeting = '晚上好';
                         return `${greeting}，欢迎来到我的主页`;
                     },
                     applyDarkMode() {
-                        if (this.isDark) {
-                            document.body.classList.add('dark-mode');
-                        } else {
-                            document.body.classList.remove('dark-mode');
-                        }
+                        if (this.isDark) document.body.classList.add('dark-mode');
+                        else document.body.classList.remove('dark-mode');
                     },
                     toggleDarkMode() {
                         this.isDark = !this.isDark;
                         localStorage.setItem('darkMode', this.isDark);
                         this.applyDarkMode();
                     },
+
+                    // ===== 一言 =====
                     initHitokoto() {
                         if (window.hitokotoList?.length) {
                             this.hitokotoIndex = 0;
@@ -616,6 +558,8 @@
                     startHitokotoTimer() {
                         setInterval(this.updateHitokoto, 3000);
                     },
+
+                    // ===== 时间 =====
                     updateTime() {
                         const now = new Date();
                         this.currentTime = now.toLocaleTimeString('zh-CN', { hour12: false });
@@ -625,6 +569,8 @@
                         this.updateTime();
                         setInterval(this.updateTime, 1000);
                     },
+
+                    // ===== 天气 =====
                     async fetchWeather() {
                         const w = this.config.weatherApi;
                         if (!w?.baseUrl) { this.useMockWeather(); return; }
@@ -639,9 +585,7 @@
                                 this.weatherDesc = data.weather || '晴';
                                 this.weatherIcon = this.getWeatherIcon(this.weatherDesc);
                             } else throw new Error();
-                        } catch {
-                            this.useMockWeather();
-                        }
+                        } catch { this.useMockWeather(); }
                     },
                     useMockWeather() {
                         this.weatherTemp = '22';
@@ -656,6 +600,8 @@
                         if (d.includes('雪')) return 'fas fa-snowflake';
                         return 'fas fa-cloud-sun';
                     },
+
+                    // ===== 歌单 & 音乐 =====
                     async loadPlaylist(pid) {
                         if (!pid) return;
                         const api = this.config.musicApi;
@@ -668,46 +614,141 @@
                             const data = await res.json();
                             if (data.code === 200 && data.songs) {
                                 this.playlist = data.songs.map((s, i) => ({
-                                    id: s.id || i,
+                                    id: s.id,
                                     name: s.name,
                                     artist: s.ar ? s.ar.map(a => a.name).join('/') : (s.artists || []).map(a => a.name).join('/') || '未知',
                                     lyric: s.al?.name || '纯音乐'
                                 }));
                                 if (this.playlist.length) this.selectTrack(0);
                             } else throw new Error();
-                        } catch {
-                            this.useMockPlaylist(pid);
-                        }
+                        } catch { this.useMockPlaylist(pid); }
                     },
                     useMockPlaylist(pid) {
                         const mock = window.mockPlaylistData && window.mockPlaylistData[pid] ? window.mockPlaylistData[pid] : [
-                            { id: 1, name: "所念皆星河", artist: "CMJ", lyric: "星河不可及" }
+                            { id: 1, name: "所念皆星河", artist: "CMJ", lyric: "星河不可及", audioUrl: "" }
                         ];
                         this.playlist = mock.map((item, idx) => ({ ...item, id: item.id || idx+100 }));
                         if (this.playlist.length) this.selectTrack(0);
                     },
-                    selectTrack(index) {
+
+                    // ===== 新增：获取歌词 =====
+                    async fetchLyrics(songId) {
+                        if (!songId) return null;
+                        const url = `https://zm.wwoyun.cn/lyric?id=${songId}`;
+                        try {
+                            const res = await fetch(url);
+                            const data = await res.json();
+                            if (data.code === 200) {
+                                // 尝试提取歌词文本
+                                if (data.lrc && data.lrc.lyric) return data.lrc.lyric;          // 标准LRC格式
+                                if (data.tlyric && data.tlyric.lyric) return data.tlyric.lyric; // 翻译歌词
+                                if (data.lyric) return data.lyric;                               // 直接字符串
+                                return null;
+                            } else {
+                                console.warn('获取歌词失败', data);
+                                return null;
+                            }
+                        } catch (e) {
+                            console.error('请求歌词出错', e);
+                            return null;
+                        }
+                    },
+
+                    // ===== 获取播放URL =====
+                    async getSongUrl(songId) {
+                        const urlApi = this.config.musicUrlApi;
+                        if (!urlApi?.baseUrl) return null;
+                        const level = urlApi.level || 'standard';
+                        const url = `${urlApi.baseUrl}?id=${songId}&level=${level}`;
+                        try {
+                            const res = await fetch(url);
+                            const data = await res.json();
+                            if (data.code === 200 && data.data?.url) {
+                                return data.data.url;
+                            } else {
+                                console.warn('获取歌曲URL失败', data);
+                                return null;
+                            }
+                        } catch (e) {
+                            console.error('请求歌曲URL出错', e);
+                            return null;
+                        }
+                    },
+
+                    async selectTrack(index) {
                         if (index < 0 || index >= this.playlist.length) return;
                         this.songIndex = index;
                         const s = this.playlist[index];
                         this.currentSong = { id: s.id, name: s.name, artist: s.artist };
-                        this.currentLyrics = s.lyric || '纯音乐 · 暂无歌词';
-                        if (this.audioElement) this.audioElement.src = '';
-                        this.isPlaying = false;
+                        this.currentLyrics = '✨ 加载歌词中...'; // 临时提示
+
+                        // 暂停当前播放
+                        if (this.isPlaying) {
+                            this.audioElement.pause();
+                            this.isPlaying = false;
+                        }
+
+                        // 并行获取歌词和播放URL
+                        const [lyrics, audioUrl] = await Promise.all([
+                            this.fetchLyrics(s.id),
+                            this.getSongUrl(s.id)
+                        ]);
+
+                        if (lyrics) {
+                            this.currentLyrics = lyrics;
+                        } else {
+                            this.currentLyrics = '✨ 暂无歌词';
+                        }
+
+                        if (audioUrl) {
+                            this.audioElement.src = audioUrl;
+                            this.audioElement.load();
+                        } else {
+                            this.audioElement.src = '';
+                            alert('无法获取歌曲播放地址，请稍后重试');
+                        }
                     },
-                    playSelected(idx) { this.selectTrack(idx); this.togglePlay(); },
-                    togglePlay() { if (this.currentSong.id) this.isPlaying = !this.isPlaying; },
-                    prevSong() {
+
+                    async playSelected(idx) {
+                        await this.selectTrack(idx);
+                        this.togglePlay();
+                    },
+
+                    togglePlay() {
+                        if (!this.currentSong.id) return;
+                        if (!this.audioElement.src) {
+                            alert('当前歌曲暂无播放地址');
+                            return;
+                        }
+                        if (this.isPlaying) {
+                            this.audioElement.pause();
+                        } else {
+                            this.audioElement.play().catch(e => {
+                                console.error('播放失败', e);
+                                alert('播放失败，可能是网络或格式问题');
+                            });
+                        }
+                        this.isPlaying = !this.isPlaying;
+                    },
+
+                    async prevSong() {
                         let idx = this.songIndex - 1;
                         if (idx < 0) idx = this.playlist.length - 1;
-                        this.selectTrack(idx);
-                        if (this.isPlaying) this.isPlaying = true;
+                        await this.selectTrack(idx);
+                        if (this.isPlaying) {
+                            this.audioElement.play().catch(() => {});
+                        }
                     },
-                    nextSong() {
+
+                    async nextSong() {
                         let idx = (this.songIndex + 1) % this.playlist.length;
-                        this.selectTrack(idx);
-                        if (this.isPlaying) this.isPlaying = true;
+                        await this.selectTrack(idx);
+                        if (this.isPlaying) {
+                            this.audioElement.play().catch(() => {});
+                        }
                     },
+
+                    // ===== 抽屉 =====
                     toggleDrawer() { this.drawerOpen = !this.drawerOpen; },
                     hasNextCategoryWithCards(i) {
                         for (let j = i + 1; j < this.config.categories.length; j++) {
@@ -716,6 +757,8 @@
                         return false;
                     },
                     hasAnyCards() { return this.config.categories.some(c => c.cards?.length); },
+
+                    // ===== 随机背景 =====
                     initBackground() {
                         this.selectRandomBackground();
                         const interval = this.config.background?.changeInterval;
@@ -731,9 +774,7 @@
                                 if (text.trim().startsWith('{') || text.trim().startsWith('[')) {
                                     const data = JSON.parse(text);
                                     url = data.imgurl || data.url || data.img || data.image || data.pic || data.data;
-                                    if (!url) {
-                                        url = apiUrl + (apiUrl.includes('?') ? '&' : '?') + 't=' + Date.now();
-                                    }
+                                    if (!url) url = apiUrl + (apiUrl.includes('?') ? '&' : '?') + 't=' + Date.now();
                                 } else {
                                     url = apiUrl + (apiUrl.includes('?') ? '&' : '?') + 't=' + Date.now();
                                 }
@@ -755,6 +796,8 @@
                         this.selectRandomBackground();
                         setTimeout(() => this.isRefreshing = false, 500);
                     },
+
+                    // ===== favicon =====
                     getCardIconUrl(card) {
                         if (card.icon) return card.icon;
                         if (!this.config.favicon?.autoFetch) return null;

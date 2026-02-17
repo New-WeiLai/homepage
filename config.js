@@ -88,6 +88,18 @@ window.siteConfig = {
         offset: 0   // 例如：设为50则从第51首开始获取
     },
     
+     // ===== 获取歌曲真实播放URL的API =====
+    musicUrlApi: {
+        baseUrl: "https://zm.wwoyun.cn/song/url/v1",
+        level: "hires"  // 音质级别 分为 standard => 标准,higher => 较高, exhigh=>极高, lossless=>无损, hires=>Hi-Res, jyeffect => 高清环绕声, sky => 沉浸环绕声, dolby => 杜比全景声, jymaster => 超清母带
+    },
+
+    // ===== 获取歌词的API =====
+    musicLyricApi: {
+        baseUrl: "https://zm.wwoyun.cn/lyric"
+    },
+
+    
        // ===== 天气API配置（uapis.cn）=====
     weatherApi: {
         baseUrl: "https://uapis.cn/api/v1/misc/weather",
