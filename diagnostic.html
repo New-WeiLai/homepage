@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页 · 陌筏（诊断模式）</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; }
+        body { background: #f0f4fa; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .diagnostic-card { max-width: 800px; width: 100%; background: white; border-radius: 30px; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        h1 { color: #1e3a5f; margin-bottom: 20px; }
+        .error-box { background: #fee; border-left: 6px solid #c00; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+        .error-box h3 { color: #c00; margin-bottom: 10px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 8px; overflow-x: auto; }
+        .btn { display: inline-block; background: #3a6ea5; color: white; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-top: 20px; }
+        .btn:hover { background: #2e5a88; }
+    </style>
+</head>
+<body>
+    <div class="diagnostic-card" id="diagnostic">
+        <h1>🔧 配置文件加载诊断</h1>
+        <div id="result">
+            <p>正在检查 config.js 加载状态...</p>
+        </div>
+        <div style="margin-top: 30px;">
+            <a href="config.js" target="_blank" class="btn">直接打开 config.js 查看内容</a>
+            <button onclick="location.reload()" class="btn" style="background:#6c757d;">重新诊断</button>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const resultDiv = document.getElementById('result');
+            let scriptLoadSuccess = false;
+            let scriptError = null;
+            let syntaxError = null;
+
+            // 捕获全局语法错误
+            window.onerror = function(message, source, lineno, colno, error) {
+                if (source && source.includes('config.js')) {
+                    syntaxError = { message, source, lineno, colno, error };
+                }
+                // 返回 true 防止默认处理
+                return true;
+            };
+
+            // 动态加载 config.js 并监听加载结果
+            const script = document.createElement('script');
+            script.src = 'config.js?_t=' + Date.now(); // 加时间戳防缓存
+            script.onload = function() {
+                scriptLoadSuccess = true;
+                // 检查 window.siteConfig 是否已定义
+                if (typeof window.siteConfig !== 'undefined') {
+                    resultDiv.innerHTML = `
+                        <div style="background:#efe; border-left:6px solid #0a0; padding:20px; border-radius:12px;">
+                            <h3 style="color:#0a0;">✅ 配置文件加载成功！</h3>
+                            <p><strong>window.siteConfig</strong> 已定义，页面将正常显示。</p>
+                            <p>即将跳转至主页...</p>
+                        </div>
+                    `;
+                    // 延迟跳转回正常主页（您可以将下面的 URL 改为您的实际主页）
+                    setTimeout(() => {
+                        // 这里假设您的正常主页就是当前页面，但移除了诊断脚本
+                        // 实际使用时可以重定向到不带诊断的版本，或者直接渲染Vue
+                        location.href = 'index.html'; // 请根据实际情况修改
+                    }, 2000);
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error-box">
+                            <h3>⚠️ 文件加载成功，但 window.siteConfig 未定义</h3>
+                            <p><strong>原因：</strong> config.js 没有正确设置 <code>window.siteConfig</code> 对象。</p>
+                            <p>请检查 config.js 文件内容，确保最后有类似这样的代码：</p>
+                            <pre>window.siteConfig = { ... };</pre>
+                            <p>当前 window.siteConfig 值为：<code>${window.siteConfig}</code></p>
+                        </div>
+                    `;
+                }
+            };
+            script.onerror = function(ev) {
+                scriptLoadSuccess = false;
+                scriptError = ev;
+                let errorDetail = '';
+                // 尝试区分 404 和其他错误
+                fetch(script.src, { method: 'HEAD' }).then(res => {
+                    if (res.status === 404) {
+                        errorDetail = '文件不存在 (404)';
+                    } else {
+                        errorDetail = `HTTP 状态码: ${res.status}`;
+                    }
+                }).catch(() => {
+                    errorDetail = '无法访问文件（可能跨域或网络问题）';
+                }).finally(() => {
+                    resultDiv.innerHTML = `
+                        <div class="error-box">
+                            <h3>❌ 配置文件加载失败</h3>
+                            <p><strong>错误类型：</strong> 脚本加载错误</p>
+                            <p><strong>详情：</strong> ${errorDetail}</p>
+                            <p><strong>建议：</strong></p>
+                            <ul>
+                                <li>确认 <code>config.js</code> 是否与当前 HTML 文件在同一目录下。</li>
+                                <li>检查文件名大小写是否完全一致（包括扩展名）。</li>
+                                <li>如果使用本地服务器，确保文件可访问。</li>
+                            </ul>
+                        </div>
+                    `;
+                });
+            };
+
+            // 将脚本插入页面，开始加载
+            document.head.appendChild(script);
+
+            // 设置一个定时器，如果长时间没结果（比如语法错误导致 onload 未触发）
+            setTimeout(() => {
+                if (!scriptLoadSuccess && !syntaxError) {
+                    // 可能语法错误导致 onload 未触发，但 onerror 也未触发？此时检查语法错误捕获
+                    if (syntaxError) {
+                        resultDiv.innerHTML = `
+                            <div class="error-box">
+                                <h3>❌ 配置文件存在语法错误</h3>
+                                <p><strong>错误信息：</strong> ${syntaxError.message}</p>
+                                <p><strong>位置：</strong> 第 ${syntaxError.lineno} 行，第 ${syntaxError.colno} 列</p>
+                                <p><strong>建议：</strong> 根据上面的错误信息修正 config.js 中的语法错误。</p>
+                            </div>
+                        `;
+                    } else if (!scriptLoadSuccess) {
+                        resultDiv.innerHTML = `
+                            <div class="error-box">
+                                <h3>⏳ 加载超时</h3>
+                                <p>脚本加载超过 3 秒未响应，可能是文件过大或网络问题。</p>
+                                <p>请尝试直接打开 <a href="config.js" target="_blank">config.js</a> 查看是否能正常显示。</p>
+                            </div>
+                        `;
+                    }
+                }
+            }, 3000);
+        })();
+    </script>
+</body>
+</html>

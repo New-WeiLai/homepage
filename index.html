@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页 · 陌筏</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; }
+        body {
+            min-height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            transition: background-image 0.5s ease, background-color 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            z-index: 0;
+            pointer-events: none;
+            transition: background 0.3s ease;
+        }
+        body.dark-mode::before {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .home-card {
+            max-width: 1100px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 42px;
+            box-shadow: 0 30px 60px rgba(0, 10, 30, 0.15), 0 10px 25px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.5);
+            position: relative;
+            z-index: 1;
+            transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        body.dark-mode .home-card {
+            background: rgba(30, 30, 40, 0.7);
+            border-color: rgba(100, 100, 120, 0.5);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-section { display: flex; align-items: center; gap: 20px; margin-bottom: 25px; flex-wrap: wrap; }
+        .avatar {
+            width: 85px; height: 85px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 10px 20px rgba(0,20,40,0.2);
+            background: #b0c7de;
+        }
+        body.dark-mode .avatar {
+            border-color: #444;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        .name {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #1e2b3f;
+            text-shadow: 2px 2px 8px rgba(255,255,255,0.7);
+        }
+        body.dark-mode .name {
+            color: #e0e0f0;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .hitokoto-panel {
+            background: rgba(255,255,255,0.4);
+            border-radius: 60px;
+            padding: 14px 28px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.8);
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #1e3a5f;
+            box-shadow: inset 0 1px 4px white, 0 8px 12px rgba(0,20,30,0.1);
+            transition: all 0.3s ease;
+        }
+        body.dark-mode .hitokoto-panel {
+            background: rgba(40, 40, 50, 0.4);
+            border-color: rgba(150, 150, 170, 0.5);
+            color: #d0d0e0;
+            box-shadow: inset 0 1px 4px rgba(255,255,255,0.1), 0 8px 12px rgba(0,0,0,0.3);
+        }
+
+        .hitokoto-text { flex: 1; font-style: italic; padding-right: 20px; }
+        .hitokoto-from {
+            font-size: 0.95rem;
+            color: #3e5e7e;
+            white-space: nowrap;
+            border-left: 2px solid #8ba3c7;
+            padding-left: 18px;
+            font-weight: 400;
+        }
+        body.dark-mode .hitokoto-from {
+            color: #a0a0c0;
+            border-left-color: #6a6a8a;
+        }
+
+        .info-music-row { display: flex; gap: 24px; margin-bottom: 30px; flex-wrap: wrap; }
+        .weather-time-card {
+            flex: 1.2;
+            min-width: 240px;
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(5px);
+            border-radius: 34px;
+            padding: 22px 25px;
+            border: 1px solid rgba(255,255,255,0.9);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        body.dark-mode .weather-time-card {
+            background: rgba(40, 40, 55, 0.5);
+            border-color: rgba(150, 150, 180, 0.5);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+        }
+
+        .weather-info { display: flex; align-items: center; gap: 10px; font-size: 1.8rem; font-weight: 600; color: #1a2b41; margin-bottom: 12px; }
+        body.dark-mode .weather-info { color: #d0d0f0; }
+        .weather-info i { font-size: 2.2rem; color: #3a6ea5; }
+        body.dark-mode .weather-info i { color: #7a9ac5; }
+        .weather-desc {
+            font-size: 1.1rem;
+            font-weight: 400;
+            background: rgba(255,255,255,0.3);
+            padding: 4px 12px;
+            border-radius: 40px;
+        }
+        body.dark-mode .weather-desc {
+            background: rgba(80,80,100,0.3);
+            color: #ccc;
+        }
+
+        .time-block { font-size: 2.5rem; font-weight: 700; color: #0f263b; }
+        body.dark-mode .time-block { color: #e0e0f0; }
+        .time-block .date { font-size: 1.1rem; font-weight: 500; color: #2e4b6e; margin-top: 6px; }
+        body.dark-mode .time-block .date { color: #a0a0c0; }
+
+        .music-player-card {
+            flex: 2;
+            min-width: 300px;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            border-radius: 38px;
+            padding: 18px 20px;
+            border: 1px solid rgba(255,255,255,0.4);
+            box-shadow: 0 20px 30px rgba(0,10,20,0.2);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        body.dark-mode .music-player-card {
+            background: rgba(20, 20, 30, 0.3);
+            border-color: rgba(150,150,180,0.3);
+        }
+
+        .player-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+        .player-header i { font-size: 1.8rem; color: #d9edff; }
+        body.dark-mode .player-header i { color: #aac; }
+        .player-header span {
+            font-weight: 600;
+            font-size: 1.2rem;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 18px;
+            border-radius: 40px;
+        }
+
+        .now-playing { background: rgba(255,255,255,0.1); border-radius: 30px; padding: 16px; margin-bottom: 20px; }
+        .song-title { font-weight: 700; font-size: 1.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .song-artist { font-size: 0.9rem; opacity: 0.8; margin: 4px 0 8px; }
+        .lyrics-box {
+            background: rgba(0,0,0,0.25);
+            border-radius: 20px;
+            padding: 10px 15px;
+            margin: 12px 0;
+            font-size: 0.9rem;
+            max-height: 70px;
+            overflow-y: auto;
+            color: #e6f0ff;
+            border: 1px solid rgba(255,255,255,0.2);
+            white-space: pre-line;
+        }
+
+        .controls { display: flex; align-items: center; justify-content: space-around; margin: 16px 0 10px; }
+        .controls i { font-size: 1.9rem; cursor: pointer; color: white; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        .controls i:active { transform: scale(0.9); }
+        .play-pause { font-size: 2.8rem !important; }
+        .playlist {
+            background: rgba(0,0,0,0.2);
+            border-radius: 28px;
+            padding: 12px 8px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        .playlist-item { display: flex; align-items: center; gap: 10px; padding: 8px 15px; border-radius: 30px; cursor: pointer; color: #f0f4ff; }
+        .playlist-item.active { background: rgba(255,255,255,0.25); font-weight: 600; }
+        .playlist-item:hover { background: rgba(255,255,255,0.15); }
+        .playlist-index { width: 24px; font-size: 0.9rem; opacity: 0.7; }
+
+        .drawer-wrapper { margin-top: 20px; }
+        .drawer-handle {
+            text-align: center;
+            padding: 8px 0 4px;
+            cursor: pointer;
+            color: #1e3a5f;
+            font-size: 1.3rem;
+            background: rgba(255,255,255,0.3);
+            border-radius: 40px;
+            width: 180px;
+            margin: 0 auto;
+            backdrop-filter: blur(3px);
+            border: 1px solid rgba(255,255,255,0.8);
+            transition: all 0.3s ease;
+        }
+        body.dark-mode .drawer-handle {
+            color: #ccc;
+            background: rgba(40,40,50,0.3);
+            border-color: rgba(150,150,180,0.5);
+        }
+        .drawer-handle:hover { background: rgba(255,255,255,0.6); }
+        body.dark-mode .drawer-handle:hover { background: rgba(80,80,100,0.6); }
+        .drawer-content {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            border-radius: 38px;
+            padding: 0 22px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.3s ease, background 0.3s ease;
+            margin-top: 12px;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        body.dark-mode .drawer-content {
+            background: rgba(30, 30, 40, 0.7);
+            border-color: rgba(100,100,120,0.5);
+        }
+        .drawer-content.open {
+            max-height: 800px;
+            padding: 22px 22px 28px;
+            overflow-y: auto;
+        }
+        .drawer-content.open::-webkit-scrollbar { width: 6px; }
+        .drawer-content.open::-webkit-scrollbar-track { background: rgba(255,255,255,0.3); border-radius: 10px; }
+        .drawer-content.open::-webkit-scrollbar-thumb { background: rgba(46, 90, 136, 0.4); border-radius: 10px; }
+        body.dark-mode .drawer-content.open::-webkit-scrollbar-thumb { background: rgba(100,100,150,0.6); }
+
+        .category-section { margin-bottom: 28px; }
+        .category-header { display: flex; align-items: center; margin-bottom: 16px; padding-left: 8px; }
+        .category-icon { font-size: 1.4rem; width: 32px; color: #2e5a88; margin-right: 10px; }
+        body.dark-mode .category-icon { color: #7a9ac5; }
+        .category-name { font-size: 1.25rem; font-weight: 700; color: #1f3a57; }
+        body.dark-mode .category-name { color: #d0d0e0; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+
+        .drawer-card {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            padding: 16px 18px;
+            text-decoration: none;
+            color: #1e3a5f;
+            border-left: 6px solid #3a6ea5;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.9);
+            border-left-width: 6px;
+        }
+        body.dark-mode .drawer-card {
+            background: rgba(40, 40, 55, 0.8);
+            color: #e0e0f0;
+            border-left-color: #7a9ac5;
+            border-color: rgba(100,100,130,0.5);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+        }
+        .drawer-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+            background: white;
+        }
+        body.dark-mode .drawer-card:hover {
+            background: rgba(60, 60, 80, 0.9);
+        }
+
+        .card-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; margin-right: 14px; flex-shrink: 0; }
+        .card-icon i { font-size: 2rem; }
+        .favicon-img { width: 32px; height: 32px; border-radius: 8px; object-fit: contain; border: 2px solid transparent; }
+        .card-info { flex: 1; min-width: 0; }
+        .card-name { font-weight: 700; font-size: 1.15rem; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card-desc { font-size: 0.85rem; opacity: 0.7; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .external-link { opacity: 0.4; font-size: 0.9rem; margin-left: 8px; transition: opacity 0.2s; flex-shrink: 0; }
+        .drawer-card:hover .external-link { opacity: 0.9; }
+        .category-divider { border: none; height: 1px; background: linear-gradient(to right, transparent, rgba(46,90,136,0.2), transparent); margin: 24px 0 16px; }
+        body.dark-mode .category-divider { background: linear-gradient(to right, transparent, rgba(100,100,150,0.3), transparent); }
+
+        .empty-drawer-tip { text-align: center; padding: 40px 20px; color: #6b8aad; }
+        body.dark-mode .empty-drawer-tip { color: #a0a0c0; }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: #3a5f7a;
+            opacity: 0.8;
+            border-top: 1px solid rgba(58,94,122,0.2);
+            padding-top: 15px;
+        }
+        body.dark-mode .footer-note {
+            color: #a0a0c0;
+            border-top-color: rgba(150,150,180,0.2);
+        }
+
+        /* 按钮容器 - 用于将两个按钮固定在右下角，且位于卡片之上 */
+        .fixed-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .fixed-btn {
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.9);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #1e3a5f;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+        .fixed-btn:hover {
+            transform: scale(1.1);
+            background: white;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
+        body.dark-mode .fixed-btn {
+            background: rgba(40,40,55,0.8);
+            border-color: rgba(150,150,180,0.5);
+            color: #e0e0f0;
+        }
+        body.dark-mode .fixed-btn:hover {
+            background: rgba(60,60,80,0.9);
+        }
+    </style>
+    <script src="config.js"></script>
+    <script src="hitokoto.js"></script>
+</head>
+<body>
+    <div class="home-card" id="app">
+        <!-- 固定在右下角的按钮容器 -->
+        <div class="fixed-buttons">
+            <div class="fixed-btn" @click="toggleDarkMode" :title="isDark ? '切换到浅色模式' : '切换到深色模式'">
+                <i :class="isDark ? 'fas fa-sun' : 'fas fa-moon'"></i>
+            </div>
+            <div v-if="config.background?.showRefreshButton" class="fixed-btn" @click="refreshBackground" title="更换背景">
+                <i class="fas fa-sync-alt" :class="{ 'fa-spin': isRefreshing }"></i>
+            </div>
+        </div>
+
+        <div class="profile-section">
+            <img class="avatar" :src="config.avatar" alt="avatar">
+            <span class="name">{{ config.name }}</span>
+        </div>
+        <div class="hitokoto-panel">
+            <div class="hitokoto-text">“{{ hitokoto.text }}”</div>
+            <div class="hitokoto-from">—— {{ hitokoto.from }}</div>
+        </div>
+        <div class="info-music-row">
+            <div class="weather-time-card">
+                <div class="weather-info">
+                    <i :class="weatherIcon"></i>
+                    <span>{{ weatherTemp }}°C</span>
+                    <span class="weather-desc">{{ weatherDesc }}</span>
+                </div>
+                <div class="time-block">
+                    {{ currentTime }}
+                    <div class="date">{{ currentDate }}</div>
+                </div>
+            </div>
+            <div class="music-player-card">
+                <div class="player-header">
+                    <i class="fas fa-headphones-alt"></i>
+                    <span>歌单 · 网易云</span>
+                </div>
+                <div class="now-playing">
+                    <div class="song-title">{{ currentSong.name }}</div>
+                    <div class="song-artist">{{ currentSong.artist }}</div>
+                    <div class="lyrics-box" v-if="currentLyrics">{{ currentLyrics }}</div>
+                    <div class="lyrics-box" v-else>✨ 暂无歌词</div>
+                </div>
+                <div class="controls">
+                    <i class="fas fa-step-backward" @click="prevSong"></i>
+                    <i class="fas" :class="isPlaying ? 'fa-pause-circle' : 'fa-play-circle'" @click="togglePlay"></i>
+                    <i class="fas fa-step-forward" @click="nextSong"></i>
+                </div>
+                <div class="playlist">
+                    <div v-for="(track, idx) in playlist" :key="track.id" class="playlist-item" :class="{active: currentSong.id === track.id}" @click="playSelected(idx)">
+                        <span class="playlist-index">{{ idx+1 }}</span>
+                        <span>{{ track.name }} - {{ track.artist }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="drawer-wrapper">
+            <div class="drawer-handle" @click="toggleDrawer">
+                <i class="fas" :class="drawerOpen ? 'fa-chevron-down' : 'fa-chevron-up'"></i> 
+                {{ drawerOpen ? '收起分类' : '上拉查看分类' }}
+            </div>
+            <div class="drawer-content" :class="{open: drawerOpen}">
+                <div v-for="(category, catIndex) in config.categories" :key="catIndex" class="category-section" v-if="category.cards && category.cards.length > 0">
+                    <div class="category-header">
+                        <i :class="category.icon" class="category-icon"></i>
+                        <span class="category-name">{{ category.name }}</span>
+                    </div>
+                    <div class="card-grid">
+                        <a v-for="card in category.cards" :key="card.name" :href="card.url" target="_blank" class="drawer-card" :style="{ borderLeftColor: card.color || '#3a6ea5' }">
+                            <div class="card-icon">
+                                <template v-if="card.icon && isFontAwesomeIcon(card.icon)">
+                                    <i :class="card.icon" :style="{ color: card.color || '#3a6ea5' }"></i>
+                                </template>
+                                <template v-else>
+                                    <img v-if="getCardIconUrl(card)" :src="getCardIconUrl(card)" :alt="card.name" class="favicon-img" @error="(e) => handleImageError(e, card)" :style="{ borderColor: card.color || '#3a6ea5' }">
+                                    <i v-else :class="config.favicon?.fallbackIcon || 'fas fa-globe'" style="font-size: 2rem; color: #3a6ea5;"></i>
+                                </template>
+                            </div>
+                            <div class="card-info">
+                                <div class="card-name">{{ card.name }}</div>
+                                <div class="card-desc">{{ card.description }}</div>
+                            </div>
+                            <i class="fas fa-external-link-alt external-link"></i>
+                        </a>
+                    </div>
+                    <hr v-if="hasNextCategoryWithCards(catIndex)" class="category-divider">
+                </div>
+                <div v-if="!hasAnyCards()" class="empty-drawer-tip">
+                    <i class="fas fa-inbox"></i>
+                    <p>暂无分类链接</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-note">©2026-至今，Nwely（陌筏）版权所有</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        (function() {
+            if (!window.siteConfig) {
+                document.body.innerHTML = '<h2 style="color:red; text-align:center;">配置文件 config.js 加载失败，请检查文件是否存在及语法正确性。</h2>';
+                return;
+            }
+
+            new Vue({
+                el: '#app',
+                data: {
+                    config: window.siteConfig,
+                    hitokoto: { text: '加载一言...', from: '' },
+                    hitokotoIndex: 0,
+                    weatherTemp: '--',
+                    weatherDesc: '加载中',
+                    weatherIcon: 'fas fa-spinner fa-pulse',
+                    currentTime: '',
+                    currentDate: '',
+                    playlist: [],
+                    currentSong: { id: 0, name: '未知歌曲', artist: '' },
+                    currentLyrics: '',
+                    isPlaying: false,
+                    audioElement: null,
+                    songIndex: 0,
+                    drawerOpen: false,
+                    faviconCache: {},
+                    currentBgImage: '',
+                    bgInterval: null,
+                    isRefreshing: false,
+                    isDark: false
+                },
+                created() {
+                    // 读取深色模式偏好
+                    const savedDark = localStorage.getItem('darkMode');
+                    this.isDark = savedDark === 'true';
+                    this.applyDarkMode();
+
+                    this.initHitokoto();
+                    this.startHitokotoTimer();
+                    this.updateTime();
+                    this.startTimeClock();
+                    this.fetchWeather();
+                    this.loadPlaylist(this.config.playlistId);
+                    this.initBackground();
+                },
+                mounted() {
+                    this.audioElement = new Audio();
+                    this.audioElement.addEventListener('ended', this.nextSong);
+                },
+                beforeDestroy() {
+                    if (this.audioElement) this.audioElement.removeEventListener('ended', this.nextSong);
+                    if (this.bgInterval) clearInterval(this.bgInterval);
+                },
+                methods: {
+                    applyDarkMode() {
+                        if (this.isDark) {
+                            document.body.classList.add('dark-mode');
+                        } else {
+                            document.body.classList.remove('dark-mode');
+                        }
+                    },
+                    toggleDarkMode() {
+                        this.isDark = !this.isDark;
+                        localStorage.setItem('darkMode', this.isDark);
+                        this.applyDarkMode();
+                    },
+                    initHitokoto() {
+                        if (window.hitokotoList?.length) {
+                            this.hitokotoIndex = 0;
+                            this.updateHitokoto();
+                        }
+                    },
+                    updateHitokoto() {
+                        const list = window.hitokotoList || [];
+                        if (list.length) {
+                            this.hitokoto = list[this.hitokotoIndex];
+                            this.hitokotoIndex = (this.hitokotoIndex + 1) % list.length;
+                        }
+                    },
+                    startHitokotoTimer() {
+                        setInterval(this.updateHitokoto, 3000);
+                    },
+                    updateTime() {
+                        const now = new Date();
+                        this.currentTime = now.toLocaleTimeString('zh-CN', { hour12: false });
+                        this.currentDate = now.toLocaleDateString('zh-CN', { year:'numeric', month:'long', day:'numeric', weekday:'short' });
+                    },
+                    startTimeClock() {
+                        this.updateTime();
+                        setInterval(this.updateTime, 1000);
+                    },
+                    async fetchWeather() {
+                        const w = this.config.weatherApi;
+                        if (!w?.baseUrl) { this.useMockWeather(); return; }
+                        let url = `${w.baseUrl}?city=${encodeURIComponent(w.city || '海口市')}`;
+                        if (w.adcode) url += `&adcode=${w.adcode}`;
+                        if (w.lang) url += `&lang=${w.lang}`;
+                        try {
+                            const res = await fetch(url);
+                            const data = await res.json();
+                            if (data.temperature !== undefined) {
+                                this.weatherTemp = data.temperature;
+                                this.weatherDesc = data.weather || '晴';
+                                this.weatherIcon = this.getWeatherIcon(this.weatherDesc);
+                            } else throw new Error();
+                        } catch {
+                            this.useMockWeather();
+                        }
+                    },
+                    useMockWeather() {
+                        this.weatherTemp = '22';
+                        this.weatherDesc = '晴';
+                        this.weatherIcon = 'fas fa-sun';
+                    },
+                    getWeatherIcon(desc) {
+                        const d = desc.toLowerCase();
+                        if (d.includes('雨')) return 'fas fa-cloud-rain';
+                        if (d.includes('云')) return 'fas fa-cloud';
+                        if (d.includes('晴')) return 'fas fa-sun';
+                        if (d.includes('雪')) return 'fas fa-snowflake';
+                        return 'fas fa-cloud-sun';
+                    },
+                    async loadPlaylist(pid) {
+                        if (!pid) return;
+                        const api = this.config.musicApi;
+                        if (!api?.baseUrl) { this.useMockPlaylist(pid); return; }
+                        let url = `${api.baseUrl}?id=${pid}`;
+                        if (api.limit !== undefined) url += `&limit=${api.limit}`;
+                        if (api.offset !== undefined) url += `&offset=${api.offset}`;
+                        try {
+                            const res = await fetch(url);
+                            const data = await res.json();
+                            if (data.code === 200 && data.songs) {
+                                this.playlist = data.songs.map((s, i) => ({
+                                    id: s.id || i,
+                                    name: s.name,
+                                    artist: s.ar ? s.ar.map(a => a.name).join('/') : (s.artists || []).map(a => a.name).join('/') || '未知',
+                                    lyric: s.al?.name || '纯音乐'
+                                }));
+                                if (this.playlist.length) this.selectTrack(0);
+                            } else throw new Error();
+                        } catch {
+                            this.useMockPlaylist(pid);
+                        }
+                    },
+                    useMockPlaylist(pid) {
+                        const mock = window.mockPlaylistData && window.mockPlaylistData[pid] ? window.mockPlaylistData[pid] : [
+                            { id: 1, name: "所念皆星河", artist: "CMJ", lyric: "星河不可及" }
+                        ];
+                        this.playlist = mock.map((item, idx) => ({ ...item, id: item.id || idx+100 }));
+                        if (this.playlist.length) this.selectTrack(0);
+                    },
+                    selectTrack(index) {
+                        if (index < 0 || index >= this.playlist.length) return;
+                        this.songIndex = index;
+                        const s = this.playlist[index];
+                        this.currentSong = { id: s.id, name: s.name, artist: s.artist };
+                        this.currentLyrics = s.lyric || '纯音乐 · 暂无歌词';
+                        if (this.audioElement) this.audioElement.src = '';
+                        this.isPlaying = false;
+                    },
+                    playSelected(idx) { this.selectTrack(idx); this.togglePlay(); },
+                    togglePlay() { if (this.currentSong.id) this.isPlaying = !this.isPlaying; },
+                    prevSong() {
+                        let idx = this.songIndex - 1;
+                        if (idx < 0) idx = this.playlist.length - 1;
+                        this.selectTrack(idx);
+                        if (this.isPlaying) this.isPlaying = true;
+                    },
+                    nextSong() {
+                        let idx = (this.songIndex + 1) % this.playlist.length;
+                        this.selectTrack(idx);
+                        if (this.isPlaying) this.isPlaying = true;
+                    },
+                    toggleDrawer() { this.drawerOpen = !this.drawerOpen; },
+                    hasNextCategoryWithCards(i) {
+                        for (let j = i + 1; j < this.config.categories.length; j++) {
+                            if (this.config.categories[j].cards?.length) return true;
+                        }
+                        return false;
+                    },
+                    hasAnyCards() { return this.config.categories.some(c => c.cards?.length); },
+                    initBackground() {
+                        this.selectRandomBackground();
+                        const interval = this.config.background?.changeInterval;
+                        if (interval > 0) this.bgInterval = setInterval(this.selectRandomBackground, interval * 1000);
+                    },
+                    async selectRandomBackground() {
+                        let url;
+                        if (this.config.background?.apiUrl) {
+                            const apiUrl = this.config.background.apiUrl;
+                            try {
+                                const response = await fetch(apiUrl);
+                                const text = await response.text();
+                                if (text.trim().startsWith('{') || text.trim().startsWith('[')) {
+                                    const data = JSON.parse(text);
+                                    url = data.imgurl || data.url || data.img || data.image || data.pic || data.data;
+                                    if (!url) {
+                                        url = apiUrl + (apiUrl.includes('?') ? '&' : '?') + 't=' + Date.now();
+                                    }
+                                } else {
+                                    url = apiUrl + (apiUrl.includes('?') ? '&' : '?') + 't=' + Date.now();
+                                }
+                            } catch (e) {
+                                url = apiUrl + (apiUrl.includes('?') ? '&' : '?') + 't=' + Date.now();
+                            }
+                        } else if (this.config.background?.images?.length) {
+                            const images = this.config.background.images;
+                            const randomIndex = Math.floor(Math.random() * images.length);
+                            url = images[randomIndex];
+                        } else {
+                            url = 'https://picsum.photos/1920/1080?random&t=' + Date.now();
+                        }
+                        this.currentBgImage = url;
+                        document.body.style.backgroundImage = `url('${url}')`;
+                    },
+                    refreshBackground() {
+                        this.isRefreshing = true;
+                        this.selectRandomBackground();
+                        setTimeout(() => this.isRefreshing = false, 500);
+                    },
+                    getCardIconUrl(card) {
+                        if (card.icon) return card.icon;
+                        if (!this.config.favicon?.autoFetch) return null;
+                        const domain = this.extractDomain(card.url);
+                        if (!domain) return null;
+                        if (this.faviconCache[domain]) return this.faviconCache[domain];
+                        let url;
+                        switch (this.config.favicon.service) {
+                            case 'google': url = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`; break;
+                            case 'duckduckgo': url = `https://icons.duckduckgo.com/ip3/${domain}.ico`; break;
+                            case 'iconhorse': url = `https://icon.horse/icon/${domain}`; break;
+                            default: url = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+                        }
+                        this.faviconCache[domain] = url;
+                        return url;
+                    },
+                    extractDomain(url) {
+                        try {
+                            return url.replace(/(https?:\/\/)?(www\.)?/, '').split('/')[0].split('?')[0];
+                        } catch { return null; }
+                    },
+                    isFontAwesomeIcon(icon) {
+                        return icon && (icon.startsWith('fa-') || icon.startsWith('fas ') || icon.startsWith('far ') || icon.startsWith('fab ') || icon.startsWith('fal '));
+                    },
+                    handleImageError(e, card) {
+                        const fb = this.config.favicon?.fallbackIcon || 'fas fa-globe';
+                        e.target.parentNode.innerHTML = `<i class="${fb}" style="font-size:2rem;color:#3a6ea5;"></i>`;
+                    }
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
