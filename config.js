@@ -124,7 +124,7 @@ window.siteConfig = {
                 { 
                     name: "个人主页github",   //标题
                     description: "这个个人主页的github",     //简介
-                    url: "https://github.com/new-weilai/home"    //链接
+                    url: "https://github.com/new-weilai/homepage"    //链接
                 },
                 { 
                     name: "博客", 

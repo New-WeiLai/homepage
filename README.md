@@ -79,7 +79,7 @@ window.siteConfig = {
             name: "项目",
             icon: "fas fa-code",
             cards: [
-                { name: "个人主页github", description: "这个个人主页的github", url: "https://github.com/new-weilai/home" },
+                { name: "个人主页github", description: "这个个人主页的github", url: "https://github.com/new-weilai/homepage" },
                 // ... 更多卡片
             ]
         },
