@@ -11,7 +11,7 @@ window.siteConfig = {
     name: "Nwely（陌筏）",
     
     // 网易云音乐歌单ID
-    playlistId: "13144855018",  // 替换为你的歌单ID
+    playlistId: "2466430926",  // 替换为你的歌单ID
     
     background: {
     /*
