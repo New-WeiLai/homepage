@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue 测试页</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 测试问候语 -->
+        <div v-if="showGreeting" style="position:fixed; top:20px; left:50%; transform:translateX(-50%); background:black; color:white; padding:10px 20px; border-radius:50px; z-index:9999;">
+            {{ greetingText }}
+        </div>
+        <p>如果上面没有出现问候语，请检查控制台。</p>
+        <p>当前 greetingText 的值是：{{ greetingText }}</p>
+        <button @click="showGreeting = true">显示问候</button>
+        <button @click="showGreeting = false">隐藏问候</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                showGreeting: true,
+                greetingText: '下午好，欢迎来到我的主页'  // 硬编码测试
+            },
+            created() {
+                console.log('Vue 实例已创建，greetingText =', this.greetingText);
+                // 模拟问候语生成
+                const hour = new Date().getHours();
+                let greeting;
+                if (hour >= 5 && hour < 9) greeting = '早上好';
+                else if (hour >= 9 && hour < 11) greeting = '上午好';
+                else if (hour >= 11 && hour < 13) greeting = '中午好';
+                else if (hour >= 13 && hour < 18) greeting = '下午好';
+                else greeting = '晚上好';
+                this.greetingText = `${greeting}，欢迎来到我的主页`;
+                console.log('问候语已更新为', this.greetingText);
+            }
+        });
+    </script>
+</body>
+</html>
