@@ -185,6 +185,21 @@ window.siteConfig = {
                     description: "一个建立于21世纪的小站，存活于互联网的边缘", 
                     url: "https://coloryi.top"
                 }
+                { 
+                    name: "旧聊BBS资源分享论坛", 
+                    description: "旧聊BBS资源分享论坛是「旧聊」软件的官方社区，汇集软件、游戏、影视、书籍等各类资源的交流与分享，打造怀旧向的综合资源乐园。", 
+                    url: "https://oldchatbbs.cn"
+                }
+                { 
+                    name: "旧聊BBS资源分享论坛（非中国大陆）", 
+                    description: "旧聊BBS资源分享论坛是「旧聊」软件的官方社区，汇集软件、游戏、影视、书籍等各类资源的交流与分享，打造怀旧向的综合资源乐园。", 
+                    url: "https://oldchatbbs.com"
+                }
+                { 
+                    name: "旧聊BBS破解资源分享论坛", 
+                    description: "旧聊BBS资源分享论坛是「旧聊」软件的官方社区，汇集软件、游戏、影视、书籍等各类资源的交流与分享，打造怀旧向的综合资源乐园。", 
+                    url: "https://oldchat.blog"
+                }
             ]
         }
     ]
