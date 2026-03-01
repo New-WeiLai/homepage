@@ -71,7 +71,7 @@ window.siteConfig = {
       "https://ysrandomwp.6956950.xyz/images/PC/53.png"
     ],          // 图片URL数组
     */
-    apiUrl: "https://picsum.photos/1920/1080?random", //随机图服务API
+    apiUrl: "https://t.mwm.moe/ycy", //随机图服务API
     changeInterval: 15,        // 自动切换间隔（秒），0为不自动切换
     showRefreshButton: true   // 是否显示手动刷新按钮
 },
