@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人主页 · 陌筏</title>
+    <title>Nwely（陌筏）の 个人主页</title>
     <meta name="keywords" content="陌筏, nwely, magic, new_weilai, new-weilai, 魔法, 新未来">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- 引入 marked 用于解析 Markdown -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* 全局样式（完整保留） */
+        /* ===== 全局样式 ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; }
         body {
             min-height: 100vh;
@@ -98,7 +97,6 @@
             text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
         }
 
-        /* 描述框样式 */
         .description-box {
             width: 100%;
             background: rgba(255, 255, 255, 0.4);
@@ -118,41 +116,15 @@
             color: #d0d0e0;
             box-shadow: inset 0 1px 4px rgba(255,255,255,0.1), 0 8px 12px rgba(0,0,0,0.3);
         }
-        .description-box p {
-            margin-bottom: 10px;
-        }
-        .description-box a {
-            color: #3a6ea5;
-            text-decoration: none;
-        }
-        .description-box a:hover {
-            text-decoration: underline;
-        }
-        body.dark-mode .description-box a {
-            color: #7a9ac5;
-        }
-        .description-box code {
-            background: rgba(0,0,0,0.1);
-            padding: 2px 5px;
-            border-radius: 4px;
-            font-family: monospace;
-        }
-        body.dark-mode .description-box code {
-            background: rgba(255,255,255,0.1);
-        }
-        .description-box pre {
-            background: rgba(0,0,0,0.1);
-            padding: 10px;
-            border-radius: 10px;
-            overflow-x: auto;
-        }
-        body.dark-mode .description-box pre {
-            background: rgba(255,255,255,0.1);
-        }
-        .description-box ul, .description-box ol {
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
+        .description-box p { margin-bottom: 10px; }
+        .description-box a { color: #3a6ea5; text-decoration: none; }
+        .description-box a:hover { text-decoration: underline; }
+        body.dark-mode .description-box a { color: #7a9ac5; }
+        .description-box code { background: rgba(0,0,0,0.1); padding: 2px 5px; border-radius: 4px; font-family: monospace; }
+        body.dark-mode .description-box code { background: rgba(255,255,255,0.1); }
+        .description-box pre { background: rgba(0,0,0,0.1); padding: 10px; border-radius: 10px; overflow-x: auto; }
+        body.dark-mode .description-box pre { background: rgba(255,255,255,0.1); }
+        .description-box ul, .description-box ol { margin-left: 20px; margin-bottom: 10px; }
 
         .hitokoto-panel {
             background: rgba(255,255,255,0.4);
@@ -284,34 +256,50 @@
             transform: scale(1.1);
         }
 
-        /* 添加面板（标签 + 内容） */
+        /* 添加面板（修复深色模式） */
         .add-panel {
-            background: rgba(0,0,0,0.5);
+            background: rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(10px);
             border-radius: 30px;
             padding: 16px;
             margin-bottom: 16px;
             border: 1px solid rgba(255,255,255,0.2);
+            transition: background 0.3s ease;
+        }
+        body.dark-mode .add-panel {
+            background: rgba(0, 0, 0, 0.5);
         }
         .add-tabs {
             display: flex;
             gap: 10px;
             margin-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
             padding-bottom: 10px;
+        }
+        body.dark-mode .add-tabs {
+            border-bottom-color: rgba(255,255,255,0.2);
         }
         .add-tab {
             padding: 5px 15px;
             border-radius: 30px;
             cursor: pointer;
-            background: rgba(255,255,255,0.1);
+            background: rgba(0, 0, 0, 0.1);
             transition: all 0.2s;
         }
+        body.dark-mode .add-tab {
+            background: rgba(255,255,255,0.1);
+        }
         .add-tab.active {
-            background: rgba(255,255,255,0.3);
+            background: rgba(0, 0, 0, 0.2);
             font-weight: 600;
         }
+        body.dark-mode .add-tab.active {
+            background: rgba(255,255,255,0.3);
+        }
         .add-tab:hover {
+            background: rgba(0, 0, 0, 0.15);
+        }
+        body.dark-mode .add-tab:hover {
             background: rgba(255,255,255,0.2);
         }
 
@@ -323,29 +311,45 @@
         }
         .id-add-panel input {
             flex: 1;
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0,0,0,0.2);
             border-radius: 30px;
             padding: 8px 16px;
-            color: white;
+            color: #1e3a5f;
             font-size: 0.9rem;
             outline: none;
         }
+        body.dark-mode .id-add-panel input {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.3);
+            color: white;
+        }
         .id-add-panel input::placeholder {
+            color: rgba(0,0,0,0.4);
+        }
+        body.dark-mode .id-add-panel input::placeholder {
             color: rgba(255,255,255,0.5);
         }
         .id-add-panel button {
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0,0,0,0.2);
             border-radius: 30px;
             padding: 8px 18px;
-            color: white;
+            color: #1e3a5f;
             cursor: pointer;
             transition: all 0.2s ease;
             font-weight: 600;
         }
+        body.dark-mode .id-add-panel button {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.3);
+            color: white;
+        }
         .id-add-panel button:hover {
-            background: rgba(255,255,255,0.4);
+            background: rgba(0, 0, 0, 0.2);
+        }
+        body.dark-mode .id-add-panel button:hover {
+            background: rgba(255,255,255,0.3);
         }
 
         /* 搜索面板 */
@@ -360,32 +364,48 @@
         }
         .search-input-group input {
             flex: 1;
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0,0,0,0.2);
             border-radius: 30px;
             padding: 8px 16px;
-            color: white;
+            color: #1e3a5f;
             font-size: 0.9rem;
             outline: none;
         }
-        .search-input-group button {
+        body.dark-mode .search-input-group input {
             background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.3);
+            color: white;
+        }
+        .search-input-group button {
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0,0,0,0.2);
             border-radius: 30px;
             padding: 8px 20px;
-            color: white;
+            color: #1e3a5f;
             cursor: pointer;
             font-weight: 600;
         }
+        body.dark-mode .search-input-group button {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.3);
+            color: white;
+        }
         .search-input-group button:hover {
-            background: rgba(255,255,255,0.4);
+            background: rgba(0, 0, 0, 0.2);
+        }
+        body.dark-mode .search-input-group button:hover {
+            background: rgba(255,255,255,0.3);
         }
         .search-results {
             max-height: 200px;
             overflow-y: auto;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.1);
             border-radius: 20px;
             padding: 8px;
+        }
+        body.dark-mode .search-results {
+            background: rgba(0,0,0,0.3);
         }
         .search-result-item {
             display: flex;
@@ -397,6 +417,9 @@
             transition: background 0.2s;
         }
         .search-result-item:hover {
+            background: rgba(0, 0, 0, 0.15);
+        }
+        body.dark-mode .search-result-item:hover {
             background: rgba(255,255,255,0.15);
         }
         .search-result-item .song-info {
@@ -414,18 +437,25 @@
             opacity: 0.7;
         }
         .search-result-item .add-btn {
-            background: rgba(255,255,255,0.2);
+            background: rgba(0, 0, 0, 0.1);
             border: none;
             border-radius: 20px;
             padding: 4px 12px;
-            color: white;
+            color: #1e3a5f;
             cursor: pointer;
             font-size: 0.8rem;
             transition: all 0.2s;
             margin-left: 10px;
         }
+        body.dark-mode .search-result-item .add-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
         .search-result-item .add-btn:hover {
-            background: rgba(255,255,255,0.4);
+            background: rgba(0, 0, 0, 0.2);
+        }
+        body.dark-mode .search-result-item .add-btn:hover {
+            background: rgba(255,255,255,0.3);
         }
 
         .now-playing { background: rgba(255,255,255,0.1); border-radius: 30px; padding: 16px; margin-bottom: 20px; }
@@ -443,6 +473,7 @@
             border: 1px solid rgba(255,255,255,0.2);
             white-space: pre-line;
         }
+
         .controls { display: flex; align-items: center; justify-content: space-around; margin: 16px 0 10px; }
         .controls i { font-size: 1.9rem; cursor: pointer; color: white; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
         .controls i:active { transform: scale(0.9); }
@@ -459,7 +490,7 @@
         .playlist-item:hover { background: rgba(255,255,255,0.15); }
         .playlist-index { width: 24px; font-size: 0.9rem; opacity: 0.7; }
 
-        /* 抽屉样式 */
+        /* 抽屉样式（保持不变） */
         .drawer-wrapper { margin-top: 20px; }
         .drawer-handle {
             text-align: center;
@@ -638,13 +669,11 @@
             100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
         }
     </style>
-    <!-- 加载外部配置文件 -->
     <script src="config.js"></script>
     <script src="hitokoto.js"></script>
 </head>
 <body>
     <div class="home-card" id="app">
-        <!-- 问候弹窗 -->
         <div v-if="showGreeting" class="greeting-toast">{{ greetingText }}</div>
 
         <div class="fixed-buttons">
@@ -661,7 +690,6 @@
                 <img class="avatar" :src="config.avatar" alt="avatar">
                 <span class="name">{{ config.name }}</span>
             </div>
-            <!-- 描述框，渲染 Markdown 内容 -->
             <div class="description-box" v-html="descriptionHtml"></div>
         </div>
 
@@ -669,6 +697,7 @@
             <div class="hitokoto-text">“{{ hitokoto.text }}”</div>
             <div class="hitokoto-from">—— {{ hitokoto.from }}</div>
         </div>
+
         <div class="info-music-row">
             <div class="weather-time-card">
                 <div class="weather-info">
@@ -681,6 +710,7 @@
                     <div class="date">{{ currentDate }}</div>
                 </div>
             </div>
+
             <div class="music-player-card">
                 <div class="player-header">
                     <div class="player-header-left">
@@ -692,20 +722,17 @@
                     </div>
                 </div>
 
-                <!-- 添加面板（可折叠） -->
                 <div v-if="showAddPanel" class="add-panel">
                     <div class="add-tabs">
                         <div class="add-tab" :class="{ active: addMode === 'id' }" @click="addMode = 'id'">ID添加</div>
                         <div class="add-tab" :class="{ active: addMode === 'search' }" @click="addMode = 'search'">搜索添加</div>
                     </div>
 
-                    <!-- ID添加面板 -->
                     <div v-if="addMode === 'id'" class="id-add-panel">
                         <input type="text" v-model="newSongId" placeholder="输入歌曲ID" @keyup.enter="addSongById">
                         <button @click="addSongById">添加</button>
                     </div>
 
-                    <!-- 搜索添加面板 -->
                     <div v-if="addMode === 'search'" class="search-panel">
                         <div class="search-input-group">
                             <input type="text" v-model="searchKeyword" placeholder="输入歌曲名或关键词" @keyup.enter="searchSongs">
@@ -743,6 +770,7 @@
                 </div>
             </div>
         </div>
+
         <div class="drawer-wrapper">
             <div class="drawer-handle" @click="toggleDrawer">
                 <i class="fas" :class="drawerOpen ? 'fa-chevron-down' : 'fa-chevron-up'"></i> 
@@ -786,20 +814,18 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script>
         (function() {
-            // 检查配置文件是否存在
+            // 检查配置文件
             if (!window.siteConfig) {
-                console.warn('config.js 未正确加载，部分功能可能不可用');
-                window.siteConfig = { avatar: '', name: '访客', playlistId: '', background: { showRefreshButton: false }, musicApi: {}, musicUrlApi: {}, musicLyricApi: {}, weatherApi: {}, favicon: {}, categories: [] };
+                console.warn('config.js 未正确加载，使用默认配置');
+                window.siteConfig = { avatar: '', name: '访客', playlistId: '', background: {}, musicApi: {}, musicUrlApi: {}, musicLyricApi: {}, weatherApi: {}, favicon: {}, categories: [], customSongs: [] };
             }
             if (!window.hitokotoList) {
-                console.warn('hitokoto.js 未正确加载');
                 window.hitokotoList = [];
             }
             if (!window.mockPlaylistData) {
                 window.mockPlaylistData = {};
             }
 
-            // 提取基础域名
             const baseUrl = 'https://zm.wwoyun.cn';
 
             new Vue({
@@ -828,9 +854,7 @@
                     showGreeting: false,
                     greetingText: '',
                     audioReady: false,
-                    // 新增：描述框内容
                     descriptionHtml: '',
-                    // 新增：添加面板控制
                     showAddPanel: false,
                     addMode: 'id',
                     newSongId: '',
@@ -839,28 +863,30 @@
                     searchLoading: false
                 },
                 created() {
-                    console.log('Vue 实例已创建');
                     const savedDark = localStorage.getItem('darkMode');
                     this.isDark = savedDark === 'true';
                     this.applyDarkMode();
 
+                    this.loadDescription();
                     this.initHitokoto();
                     this.startHitokotoTimer();
                     this.updateTime();
                     this.startTimeClock();
                     this.initBackground();
-                    this.loadDescription(); // 加载描述文件
 
-                    // 延迟显示问候语
                     setTimeout(() => {
                         this.greetingText = this.getGreeting();
                         this.showGreeting = true;
                         setTimeout(() => { this.showGreeting = false; }, 7000);
                     }, 100);
 
-                    // 异步加载数据
+                    // 加载歌单后添加自定义歌曲
                     this.fetchWeather().catch(() => {});
-                    this.loadPlaylist(this.config.playlistId).catch(() => {});
+                    this.loadPlaylist(this.config.playlistId).then(() => {
+                        this.addCustomSongs();
+                    }).catch(() => {
+                        this.addCustomSongs();
+                    });
                 },
                 mounted() {
                     this.audioElement = new Audio();
@@ -885,99 +911,19 @@
                     if (this.bgInterval) clearInterval(this.bgInterval);
                 },
                 methods: {
-                    // ===== 新增：加载 description.md =====
+                    // ===== 描述 =====
                     async loadDescription() {
                         try {
                             const res = await fetch('description.md');
                             if (!res.ok) throw new Error('文件不存在');
                             const text = await res.text();
-                            // 使用 marked 解析 Markdown
                             this.descriptionHtml = marked.parse(text);
-                        } catch (e) {
-                            console.warn('加载 description.md 失败', e);
+                        } catch {
                             this.descriptionHtml = '<p>暂无介绍</p>';
                         }
                     },
 
-                    // ===== 新增：搜索歌曲 =====
-                    async searchSongs() {
-                        const keyword = this.searchKeyword.trim();
-                        if (!keyword) {
-                            alert('请输入搜索关键词');
-                            return;
-                        }
-                        this.searchLoading = true;
-                        this.searchResults = [];
-                        try {
-                            const url = `${baseUrl}/search?keywords=${encodeURIComponent(keyword)}&limit=20`;
-                            const res = await fetch(url);
-                            const data = await res.json();
-                            if (data.code === 200 && data.result && data.result.songs) {
-                                this.searchResults = data.result.songs.map(song => ({
-                                    id: song.id,
-                                    name: song.name,
-                                    artist: song.artists ? song.artists.map(a => a.name).join('/') : (song.artist ? song.artist : '未知')
-                                }));
-                            } else {
-                                this.searchResults = [];
-                            }
-                        } catch (e) {
-                            console.error('搜索失败', e);
-                            alert('搜索失败，请稍后重试');
-                        } finally {
-                            this.searchLoading = false;
-                        }
-                    },
-                    addSearchSong(song) {
-                        if (this.playlist.some(s => s.id == song.id)) {
-                            alert('该歌曲已在歌单中');
-                            return;
-                        }
-                        const newTrack = {
-                            id: song.id,
-                            name: song.name,
-                            artist: song.artist,
-                            lyric: '纯音乐'
-                        };
-                        this.playlist.push(newTrack);
-                    },
-                    async addSongById() {
-                        const id = this.newSongId.trim();
-                        if (!id) {
-                            alert('请输入歌曲ID');
-                            return;
-                        }
-                        if (this.playlist.some(song => song.id == id)) {
-                            alert('该歌曲已在歌单中');
-                            this.newSongId = '';
-                            this.showAddPanel = false;
-                            return;
-                        }
-                        try {
-                            const url = `${baseUrl}/song/detail?ids=${id}`;
-                            const res = await fetch(url);
-                            const data = await res.json();
-                            if (data.code === 200 && data.songs && data.songs.length > 0) {
-                                const song = data.songs[0];
-                                const newTrack = {
-                                    id: song.id,
-                                    name: song.name,
-                                    artist: song.ar ? song.ar.map(a => a.name).join('/') : '未知歌手',
-                                    lyric: song.al?.name || '纯音乐'
-                                };
-                                this.playlist.push(newTrack);
-                                this.newSongId = '';
-                                this.showAddPanel = false;
-                            } else {
-                                alert('未找到该歌曲，请检查ID');
-                            }
-                        } catch (e) {
-                            console.error('添加歌曲失败', e);
-                            alert('添加失败，请检查网络或API');
-                        }
-                    },
-
-                    // ===== 以下为原有方法，保持不变 =====
+                    // ===== 问候 =====
                     getGreeting() {
                         const hour = new Date().getHours();
                         if (hour >= 5 && hour < 9) return '早上好，欢迎来到我的主页';
@@ -995,6 +941,8 @@
                         localStorage.setItem('darkMode', this.isDark);
                         this.applyDarkMode();
                     },
+
+                    // ===== 一言 =====
                     initHitokoto() {
                         if (window.hitokotoList?.length) {
                             this.hitokotoIndex = 0;
@@ -1011,6 +959,8 @@
                     startHitokotoTimer() {
                         setInterval(this.updateHitokoto, 3000);
                     },
+
+                    // ===== 时间 =====
                     updateTime() {
                         const now = new Date();
                         this.currentTime = now.toLocaleTimeString('zh-CN', { hour12: false });
@@ -1020,6 +970,8 @@
                         this.updateTime();
                         setInterval(this.updateTime, 1000);
                     },
+
+                    // ===== 天气 =====
                     async fetchWeather() {
                         const w = this.config.weatherApi;
                         if (!w?.baseUrl) { this.useMockWeather(); return; }
@@ -1049,6 +1001,8 @@
                         if (d.includes('雪')) return 'fas fa-snowflake';
                         return 'fas fa-cloud-sun';
                     },
+
+                    // ===== 歌单 =====
                     async loadPlaylist(pid) {
                         if (!pid) return;
                         const api = this.config.musicApi;
@@ -1077,6 +1031,53 @@
                         this.playlist = mock.map((item, idx) => ({ ...item, id: item.id || idx+100 }));
                         if (this.playlist.length) this.selectTrack(0);
                     },
+
+                    // ===== 新增：添加自定义歌曲 =====
+                    addCustomSongs() {
+                        const custom = this.config.customSongs || [];
+                        custom.forEach(item => {
+                            if (item.id) {
+                                // 通过ID添加（与addSongById类似但无需交互）
+                                if (!this.playlist.some(s => s.id == item.id)) {
+                                    this.fetchSongDetail(item.id).then(song => {
+                                        if (song) this.playlist.push(song);
+                                    }).catch(() => {});
+                                }
+                            } else if (item.url && item.name) {
+                                // 直接提供URL
+                                if (!this.playlist.some(s => s.url === item.url)) {
+                                    this.playlist.push({
+                                        id: `custom-${Date.now()}-${Math.random()}`,
+                                        name: item.name,
+                                        artist: item.artist || '未知',
+                                        url: item.url, // 存储直接URL，稍后在selectTrack中处理
+                                        lyric: '✨ 自定义歌曲'
+                                    });
+                                }
+                            }
+                        });
+                    },
+                    async fetchSongDetail(id) {
+                        const url = `${baseUrl}/song/detail?ids=${id}`;
+                        try {
+                            const res = await fetch(url);
+                            const data = await res.json();
+                            if (data.code === 200 && data.songs && data.songs.length > 0) {
+                                const song = data.songs[0];
+                                return {
+                                    id: song.id,
+                                    name: song.name,
+                                    artist: song.ar ? song.ar.map(a => a.name).join('/') : '未知歌手',
+                                    lyric: song.al?.name || '纯音乐'
+                                };
+                            }
+                        } catch (e) {
+                            console.error('获取歌曲详情失败', e);
+                        }
+                        return null;
+                    },
+
+                    // ===== 歌词（支持翻译） =====
                     async fetchLyrics(songId) {
                         if (!songId) return null;
                         const url = `${this.config.musicLyricApi.baseUrl}?id=${songId}`;
@@ -1084,11 +1085,39 @@
                             const res = await fetch(url);
                             const data = await res.json();
                             if (data.code === 200) {
-                                if (data.lrc && data.lrc.lyric) return data.lrc.lyric;
-                                if (data.tlyric && data.tlyric.lyric) return data.tlyric.lyric;
-                                if (data.lyric) return data.lyric;
-                                if (data.data && data.data.lrc && data.data.lrc.lyric) return data.data.lrc.lyric;
-                                if (data.data && data.data.lyric) return data.data.lyric;
+                                let result = '';
+                                // 获取原文歌词
+                                const lrcText = data.lrc?.lyric || '';
+                                const tlyricText = data.tlyric?.lyric || '';
+                                
+                                if (lrcText && tlyricText) {
+                                    // 解析原文和翻译的行
+                                    const lrcLines = lrcText.split('\n').filter(line => line.trim() !== '');
+                                    const tlyricLines = tlyricText.split('\n').filter(line => line.trim() !== '');
+                                    
+                                    // 简单合并：按行对应，如果行数不一致，只显示原文
+                                    // 假设两个列表行数大致相等，按顺序合并
+                                    for (let i = 0; i < lrcLines.length; i++) {
+                                        const lrcLine = lrcLines[i];
+                                        const tlyricLine = i < tlyricLines.length ? tlyricLines[i] : '';
+                                        if (lrcLine) {
+                                            // 去掉时间戳或保留？保留时间戳有助于用户理解
+                                            result += lrcLine;
+                                            if (tlyricLine) {
+                                                // 提取翻译部分的文本（去掉时间戳）
+                                                const transText = tlyricLine.replace(/\[\d+:\d+\.\d+\]/g, '').trim();
+                                                if (transText) {
+                                                    result += '  // ' + transText;
+                                                }
+                                            }
+                                            result += '\n';
+                                        }
+                                    }
+                                } else {
+                                    // 只有原文或只有翻译
+                                    result = lrcText || tlyricText || '';
+                                }
+                                return result || null;
                             }
                             return null;
                         } catch (e) {
@@ -1096,6 +1125,8 @@
                             return null;
                         }
                     },
+
+                    // ===== 获取播放URL =====
                     async getSongUrl(songId) {
                         const api = this.config.musicUrlApi;
                         if (!api?.baseUrl) return null;
@@ -1113,6 +1144,8 @@
                             return null;
                         }
                     },
+
+                    // ===== 选择歌曲 =====
                     async selectTrack(index) {
                         if (index < 0 || index >= this.playlist.length) return;
                         this.songIndex = index;
@@ -1124,12 +1157,22 @@
                             this.audioElement.pause();
                             this.isPlaying = false;
                         }
-                        const [lyrics, audioUrl] = await Promise.all([
-                            this.fetchLyrics(s.id),
-                            this.getSongUrl(s.id)
-                        ]);
-                        if (lyrics) this.currentLyrics = lyrics;
-                        else this.currentLyrics = '✨ 暂无歌词';
+
+                        let audioUrl = null;
+                        if (s.url) {
+                            // 直接使用自定义URL
+                            audioUrl = s.url;
+                            this.currentLyrics = s.lyric || '✨ 暂无歌词';
+                        } else {
+                            const [lyrics, url] = await Promise.all([
+                                this.fetchLyrics(s.id),
+                                this.getSongUrl(s.id)
+                            ]);
+                            if (lyrics) this.currentLyrics = lyrics;
+                            else this.currentLyrics = '✨ 暂无歌词';
+                            audioUrl = url;
+                        }
+
                         if (audioUrl) {
                             this.audioElement.src = audioUrl;
                             this.audioElement.load();
@@ -1138,6 +1181,7 @@
                             alert('无法获取歌曲播放地址，请稍后重试');
                         }
                     },
+
                     async playSelected(idx) {
                         await this.selectTrack(idx);
                         this.isPlaying = true;
@@ -1173,6 +1217,62 @@
                         await this.selectTrack(idx);
                         this.isPlaying = true;
                     },
+
+                    // ===== 添加歌曲 =====
+                    async searchSongs() {
+                        const keyword = this.searchKeyword.trim();
+                        if (!keyword) return;
+                        this.searchLoading = true;
+                        this.searchResults = [];
+                        try {
+                            const url = `${baseUrl}/search?keywords=${encodeURIComponent(keyword)}&limit=20`;
+                            const res = await fetch(url);
+                            const data = await res.json();
+                            if (data.code === 200 && data.result?.songs) {
+                                this.searchResults = data.result.songs.map(song => ({
+                                    id: song.id,
+                                    name: song.name,
+                                    artist: song.artists ? song.artists.map(a => a.name).join('/') : (song.artist || '未知')
+                                }));
+                            }
+                        } catch (e) {
+                            console.error('搜索失败', e);
+                        } finally {
+                            this.searchLoading = false;
+                        }
+                    },
+                    addSearchSong(song) {
+                        if (this.playlist.some(s => s.id == song.id)) {
+                            alert('该歌曲已在歌单中');
+                            return;
+                        }
+                        this.playlist.push({
+                            id: song.id,
+                            name: song.name,
+                            artist: song.artist,
+                            lyric: '纯音乐'
+                        });
+                    },
+                    async addSongById() {
+                        const id = this.newSongId.trim();
+                        if (!id) return;
+                        if (this.playlist.some(s => s.id == id)) {
+                            alert('该歌曲已在歌单中');
+                            this.newSongId = '';
+                            this.showAddPanel = false;
+                            return;
+                        }
+                        const song = await this.fetchSongDetail(id);
+                        if (song) {
+                            this.playlist.push(song);
+                            this.newSongId = '';
+                            this.showAddPanel = false;
+                        } else {
+                            alert('未找到该歌曲，请检查ID');
+                        }
+                    },
+
+                    // ===== 抽屉 =====
                     toggleDrawer() { this.drawerOpen = !this.drawerOpen; },
                     hasNextCategoryWithCards(i) {
                         for (let j = i + 1; j < this.config.categories.length; j++) {
@@ -1181,6 +1281,8 @@
                         return false;
                     },
                     hasAnyCards() { return this.config.categories.some(c => c.cards?.length); },
+
+                    // ===== 随机背景 =====
                     initBackground() {
                         this.selectRandomBackground();
                         const interval = this.config.background?.changeInterval;
@@ -1218,6 +1320,8 @@
                         this.selectRandomBackground();
                         setTimeout(() => this.isRefreshing = false, 500);
                     },
+
+                    // ===== favicon =====
                     getCardIconUrl(card) {
                         if (card.icon) return card.icon;
                         if (!this.config.favicon?.autoFetch) return null;
