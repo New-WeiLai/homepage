@@ -10,6 +10,21 @@ window.siteConfig = {
     // 显示姓名
     name: "Nwely（陌筏）",
     
+    // 个人介绍（支持 Markdown 语法）
+    description: `
+# 下面是我的介绍：
+🎶 爱玩 Phigros（屁股肉）
+⛏️ Minecraft 爱好者
+🕹️喜欢的游戏：Steam 游戏、原神、崩铁 
+🌈 MBTI：INFP
+成分：
+10% 男娘 | 1% gay |
+💻 40% 编程 | 🎮 29% 游戏 | 🎥 20% 做视频   
+旧聊uid：Magic
+QQ号：1292673083
+邮箱：future20152024@outlook.com|1292673083@qq.com
+    `,
+    
     // 网易云音乐歌单ID
     playlistId: "2466430926",  // 替换为你的歌单ID
     
@@ -122,7 +137,7 @@ window.siteConfig = {
     { id: 18520488 },
     { id: 29553031 },
     { id: 2146556448 }
-]
+],
     
         // ===== 全局 favicon 配置 =====
     favicon: {
@@ -152,7 +167,7 @@ window.siteConfig = {
                 { 
                     name: "个人主页github",   //标题
                     description: "这个个人主页的github",     //简介
-                    url: "https://github.com/new-weilai/home"    //链接
+                    url: "https://github.com/new-weilai/homepage"    //链接
                 },
                 { 
                     name: "博客", 
