@@ -22,7 +22,7 @@ window.siteConfig = {
 💻 40% 编程 | 🎮 29% 游戏 | 🎥 20% 做视频   
 旧聊uid：Magic
 QQ号：1292673083
-邮箱：future20152024@outlook.com|1292673083@qq.com
+邮箱：future20152024@outlook.com|1292673083@qq.com|admin@nwely.top|admin@6956950.xyz|nwely@old.chat（挺多hh）
     `,
     
     // 网易云音乐歌单ID
