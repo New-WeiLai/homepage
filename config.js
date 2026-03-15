@@ -172,7 +172,12 @@ QQ号：1292673083
                 { 
                     name: "博客", 
                     description: "我的博客", 
-                    url: "https://blog.6956950.xyz"
+                    url: "https://blog.nwely.top"
+                },
+                { 
+                    name: "论坛", 
+                    description: "我的论坛", 
+                    url: "https://forum.nwely.top"
                 },
                 { 
                     name: "网站反代", 
