@@ -94,26 +94,20 @@ admin@6956950.xyz|nwely@old.chat（挺多hh）
     
     // ===== 网易云音乐API配置 =====
     musicApi: {
-        // 您提供的API接口
-        baseUrl: "https://ncmapi.nwely.top/playlist/track/all",
-        
-        // 获取歌曲数量限制（可选，不填或设为空字符串则获取全部）
-        limit: 100,  // 例如：只获取前10首
-        
-        // 获取歌曲的起始偏移量（0表示从第一首开始）
-        offset: 0   // 例如：设为50则从第51首开始获取
-    },
-    
-     // ===== 获取歌曲真实播放URL的API =====
-    musicUrlApi: {
-        baseUrl: "https://ncmapi.nwely.top/song/url/v1",
-        level: "hires"  // 音质级别 分为 standard => 标准,higher => 较高, exhigh=>极高, lossless=>无损, hires=>Hi-Res, jyeffect => 高清环绕声, sky => 沉浸环绕声, dolby => 杜比全景声, jymaster => 超清母带
-        
+        baseUrl: "https://ncmapi.nwely.top/playlist/track/all", // 新域名
+        limit: 100,
+        offset: 0
     },
 
-    // ===== 获取歌词的API =====
+    // 获取歌曲真实播放URL的API（新版，支持音质等级）
+    musicUrlApi: {
+        baseUrl: "https://ncmapi.nwely.top/song/url/v1", // 新域名
+        level: "hires"  // 音质等级，可选 standard/higher/exhigh/lossless/hires 等
+    },
+
+    // 获取歌词的API
     musicLyricApi: {
-        baseUrl: "https://ncmapi.nwely.top/lyric"
+        baseUrl: "https://ncmapi.nwely.top/lyric" // 新域名
     },
 
     

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nwely（陌筏）の 个人主页</title>
     <meta name="keywords" content="陌筏, nwely, magic, new_weilai, new-weilai, 魔法, 新未来">
+    <meta name="referrer" content="no-referrer">   <!-- 防止 403 错误 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -786,25 +787,6 @@
     </style>
     <script src="config.js"></script>
     <script src="hitokoto.js"></script>
-    <script>
-(function() {
-    var statsId = '5b79c63a26aabfa02f14aef327e3d062';
-    var statsDomain = 'nwely.top';
-    var statsUrl = 'http://freenom.me.uk/track.php';
-    
-    function trackStats() {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', statsUrl + '?id=' + statsId + '&domain=' + encodeURIComponent(statsDomain) + '&t=' + Date.now());
-        xhr.send();
-    }
-    
-    if (document.readyState === 'complete') {
-        trackStats();
-    } else {
-        window.addEventListener('load', trackStats);
-    }
-})();
-</script>
 </head>
 <body>
     <div class="home-card" id="app">
@@ -909,7 +891,6 @@
                     <div v-for="(track, idx) in playlist" :key="track.id" class="playlist-item" :class="{active: currentSong.id === track.id}" @click="playSelected(idx)">
                         <span class="playlist-index">{{ idx+1 }}</span>
                         <span class="song-info">{{ track.name }} - {{ track.artist }}</span>
-                        <!-- 修正喜欢图标，使用 FontAwesome 6 的 far/fas -->
                         <i class="like-btn" :class="isLiked(track.id) ? 'fas fa-heart' : 'far fa-heart'" @click.stop="toggleLike(track.id)"></i>
                         <div class="menu-btn" @click.stop="showMenuFor = track.id">
                             <i class="fas fa-ellipsis-v"></i>
@@ -960,7 +941,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer-note">©2026-至今，Nwely（陌筏）版权所有，感谢@peng购买域名</div>
+        <div class="footer-note">©2026-至今，Nwely（陌筏）版权所有</div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
@@ -972,6 +953,7 @@
             if (!window.hitokotoList) window.hitokotoList = [];
             if (!window.mockPlaylistData) window.mockPlaylistData = {};
 
+            // 使用新的 API 域名
             const baseUrl = 'https://ncmapi.nwely.top';
 
             new Vue({
@@ -1009,17 +991,15 @@
                     searchLoading: false,
                     lyricLines: [],
                     currentLyricIndex: -1,
-                    // 新增
                     playMode: 'sequence', // 'sequence', 'single', 'random'
-                    likedSongs: [],        // 存储喜欢的歌曲ID
-                    showMenuFor: null,     // 当前显示菜单的歌曲ID
+                    likedSongs: [],
+                    showMenuFor: null,
                 },
                 created() {
                     const savedDark = localStorage.getItem('darkMode');
                     this.isDark = savedDark === 'true';
                     this.applyDarkMode();
 
-                    // 读取喜欢的歌曲
                     const savedLiked = localStorage.getItem('likedSongs');
                     if (savedLiked) {
                         this.likedSongs = JSON.parse(savedLiked);
@@ -1050,9 +1030,7 @@
                         if (this.isPlaying) this.audioElement.play().catch(() => {});
                     });
                     this.audioElement.addEventListener('ended', () => {
-                        // 根据播放模式处理结束事件
                         if (this.playMode === 'single') {
-                            // 单曲循环：重新播放当前
                             this.audioElement.currentTime = 0;
                             this.audioElement.play().catch(() => {});
                         } else {
@@ -1077,9 +1055,9 @@
                 computed: {
                     playModeIcon() {
                         const icons = {
-                            sequence: 'fa-list',      // 顺序播放用列表图标
-                            single: 'fa-repeat',       // 单曲循环用重复图标
-                            random: 'fa-random'        // 随机播放用随机图标
+                            sequence: 'fa-list',
+                            single: 'fa-repeat',
+                            random: 'fa-random'
                         };
                         return icons[this.playMode] || 'fa-list';
                     },
@@ -1129,14 +1107,12 @@
                         localStorage.setItem('likedSongs', JSON.stringify(this.likedSongs));
                     },
                     downloadSong(song) {
-                        // 如果有 audioUrl 则下载，否则尝试获取
                         if (song.url) {
                             const a = document.createElement('a');
                             a.href = song.url;
                             a.download = `${song.name} - ${song.artist}.mp3`;
                             a.click();
                         } else {
-                            // 如果没有直接URL，尝试从API获取
                             this.getSongUrl(song.id).then(url => {
                                 if (url) {
                                     const a = document.createElement('a');
@@ -1148,11 +1124,10 @@
                                 }
                             });
                         }
-                        this.showMenuFor = null; // 关闭菜单
+                        this.showMenuFor = null;
                     },
                     removeSong(index) {
                         if (confirm('确定要从播放列表中移除这首歌吗？')) {
-                            // 如果移除的是当前播放的歌曲，则停止播放并跳到下一首
                             if (this.songIndex === index) {
                                 this.nextSong();
                                 this.playlist.splice(index, 1);
@@ -1164,7 +1139,6 @@
                                 }
                             } else {
                                 this.playlist.splice(index, 1);
-                                // 调整当前索引
                                 if (this.songIndex > index) {
                                     this.songIndex--;
                                 }
@@ -1173,7 +1147,7 @@
                         this.showMenuFor = null;
                     },
 
-                    // ===== 原有方法（部分需修改） =====
+                    // ===== 原有方法 =====
                     loadDescription() {
                         if (this.config.description) {
                             this.descriptionHtml = marked.parse(this.config.description);
@@ -1198,7 +1172,7 @@
                     },
                     parseLyricsToLines(lrcText, tlyricText) {
                         const lines = [];
-                        const parse = (text, isTranslation = false) => {
+                        const parse = (text) => {
                             if (!text) return new Map();
                             const map = new Map();
                             const regex = /^\[(\d+):(\d+\.\d+)\](.*)/;
@@ -1311,7 +1285,7 @@
                             this.audioElement.src = '';
                             alert('无法获取歌曲播放地址');
                         }
-                        this.showMenuFor = null; // 关闭菜单
+                        this.showMenuFor = null;
                     },
                     getGreeting() {
                         const hour = new Date().getHours();
@@ -1498,12 +1472,10 @@
                         let newIndex;
                         if (this.playlist.length === 0) return;
                         if (this.playMode === 'random') {
-                            // 随机选一个不同的
                             do {
                                 newIndex = Math.floor(Math.random() * this.playlist.length);
                             } while (newIndex === this.songIndex && this.playlist.length > 1);
                         } else {
-                            // 顺序或单曲
                             newIndex = this.songIndex - 1;
                             if (newIndex < 0) newIndex = this.playlist.length - 1;
                         }
@@ -1518,7 +1490,6 @@
                                 newIndex = Math.floor(Math.random() * this.playlist.length);
                             } while (newIndex === this.songIndex && this.playlist.length > 1);
                         } else {
-                            // 顺序或单曲
                             newIndex = (this.songIndex + 1) % this.playlist.length;
                         }
                         await this.selectTrack(newIndex);
