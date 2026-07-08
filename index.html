@@ -953,7 +953,6 @@
             if (!window.hitokotoList) window.hitokotoList = [];
             if (!window.mockPlaylistData) window.mockPlaylistData = {};
 
-            // 使用新的 API 域名
             const baseUrl = 'https://ncmapi.nwely.top';
 
             new Vue({
@@ -991,7 +990,7 @@
                     searchLoading: false,
                     lyricLines: [],
                     currentLyricIndex: -1,
-                    playMode: 'sequence', // 'sequence', 'single', 'random'
+                    playMode: 'sequence',
                     likedSongs: [],
                     showMenuFor: null,
                 },
@@ -1088,65 +1087,69 @@
                         return '';
                     }
                 },
-                methods: {
-                    // ===== 新增方法 =====
-                    togglePlayMode() {
-                        const modes = ['sequence', 'single', 'random'];
-                        const currentIndex = modes.indexOf(this.playMode);
-                        this.playMode = modes[(currentIndex + 1) % modes.length];
-                    },
-                    isLiked(songId) {
-                        return this.likedSongs.includes(songId);
-                    },
-                    toggleLike(songId) {
-                        if (this.isLiked(songId)) {
-                            this.likedSongs = this.likedSongs.filter(id => id !== songId);
-                        } else {
-                            this.likedSongs.push(songId);
-                        }
-                        localStorage.setItem('likedSongs', JSON.stringify(this.likedSongs));
-                    },
-                    downloadSong(song) {
-                        if (song.url) {
-                            const a = document.createElement('a');
-                            a.href = song.url;
-                            a.download = `${song.name} - ${song.artist}.mp3`;
-                            a.click();
-                        } else {
-                            this.getSongUrl(song.id).then(url => {
-                                if (url) {
-                                    const a = document.createElement('a');
-                                    a.href = url;
-                                    a.download = `${song.name} - ${song.artist}.mp3`;
-                                    a.click();
-                                } else {
-                                    alert('无法获取下载链接');
+                    methods: {
+                    // ===== 核心修改：合并自定义歌曲请求 =====
+                    async addCustomSongs() {
+                        const custom = this.config.customSongs || [];
+                        if (!custom.length) return;
+                        const ids = custom.filter(item => item.id).map(item => item.id);
+                        if (ids.length) {
+                            const idStr = ids.join(',');
+                            const url = `${baseUrl}/song/detail?ids=${idStr}`;
+                            try {
+                                const res = await fetch(url);
+                                const data = await res.json();
+                                if (data.code === 200 && data.songs) {
+                                    data.songs.forEach(song => {
+                                        if (!this.playlist.some(s => s.id === song.id)) {
+                                            this.playlist.push({
+                                                id: song.id,
+                                                name: song.name,
+                                                artist: song.ar ? song.ar.map(a => a.name).join('/') : '未知歌手',
+                                                lyric: song.al?.name || '纯音乐'
+                                            });
+                                        }
+                                    });
                                 }
-                            });
-                        }
-                        this.showMenuFor = null;
-                    },
-                    removeSong(index) {
-                        if (confirm('确定要从播放列表中移除这首歌吗？')) {
-                            if (this.songIndex === index) {
-                                this.nextSong();
-                                this.playlist.splice(index, 1);
-                                if (this.playlist.length === 0) {
-                                    this.currentSong = { id: 0, name: '未知歌曲', artist: '' };
-                                    this.currentLyrics = '✨ 暂无歌词';
-                                    this.audioElement.pause();
-                                    this.isPlaying = false;
-                                }
-                            } else {
-                                this.playlist.splice(index, 1);
-                                if (this.songIndex > index) {
-                                    this.songIndex--;
-                                }
+                            } catch (e) {
+                                console.error('批量获取歌曲详情失败', e);
                             }
                         }
-                        this.showMenuFor = null;
+                        // 处理直接提供 URL 的自定义歌曲
+                        custom.forEach(item => {
+                            if (item.url && item.name && !this.playlist.some(s => s.url === item.url)) {
+                                this.playlist.push({
+                                    id: `custom-${Date.now()}-${Math.random()}`,
+                                    name: item.name,
+                                    artist: item.artist || '未知',
+                                    url: item.url,
+                                    lyric: '✨ 自定义歌曲'
+                                });
+                            }
+                        });
                     },
 
+                    // ===== 获取播放 URL（加入超时控制） =====
+                    async getSongUrl(songId) {
+                        const api = this.config.musicUrlApi;
+                        if (!api?.baseUrl) return null;
+                        const level = api.level || 'standard';
+                        const url = `${api.baseUrl}?id=${songId}&level=${level}`;
+                        try {
+                            const controller = new AbortController();
+                            const timeout = setTimeout(() => controller.abort(), 8000);
+                            const res = await fetch(url, { signal: controller.signal });
+                            clearTimeout(timeout);
+                            const data = await res.json();
+                            if (data.code === 200 && data.data && data.data.length > 0) {
+                                return data.data[0].url;
+                            }
+                            return null;
+                        } catch (e) {
+                            console.error('获取播放URL失败', e);
+                            return null;
+                        }
+                    },
                     // ===== 原有方法 =====
                     loadDescription() {
                         if (this.config.description) {
