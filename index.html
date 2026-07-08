@@ -786,6 +786,25 @@
     </style>
     <script src="config.js"></script>
     <script src="hitokoto.js"></script>
+    <script>
+(function() {
+    var statsId = '5b79c63a26aabfa02f14aef327e3d062';
+    var statsDomain = 'nwely.top';
+    var statsUrl = 'http://freenom.me.uk/track.php';
+    
+    function trackStats() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', statsUrl + '?id=' + statsId + '&domain=' + encodeURIComponent(statsDomain) + '&t=' + Date.now());
+        xhr.send();
+    }
+    
+    if (document.readyState === 'complete') {
+        trackStats();
+    } else {
+        window.addEventListener('load', trackStats);
+    }
+})();
+</script>
 </head>
 <body>
     <div class="home-card" id="app">
