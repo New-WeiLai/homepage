@@ -22,7 +22,8 @@ window.siteConfig = {
 💻 40% 编程 | 🎮 29% 游戏 | 🎥 20% 做视频   
 旧聊uid：Magic
 QQ号：1292673083
-邮箱：future20152024@outlook.com|1292673083@qq.com|admin@nwely.top|admin@6956950.xyz|nwely@old.chat（挺多hh）
+邮箱：future20152024@outlook.com|1292673083@qq.com|admin@nwely.top|
+admin@6956950.xyz|nwely@old.chat（挺多hh）
     `,
     
     // 网易云音乐歌单ID
@@ -94,7 +95,7 @@ QQ号：1292673083
     // ===== 网易云音乐API配置 =====
     musicApi: {
         // 您提供的API接口
-        baseUrl: "https://zm.wwoyun.cn/playlist/track/all",
+        baseUrl: "https://ncmapi.nwely.top/playlist/track/all",
         
         // 获取歌曲数量限制（可选，不填或设为空字符串则获取全部）
         limit: 100,  // 例如：只获取前10首
@@ -105,13 +106,14 @@ QQ号：1292673083
     
      // ===== 获取歌曲真实播放URL的API =====
     musicUrlApi: {
-        baseUrl: "https://zm.wwoyun.cn/song/url/v1",
+        baseUrl: "https://ncmapi.nwely.top/song/url/v1",
         level: "hires"  // 音质级别 分为 standard => 标准,higher => 较高, exhigh=>极高, lossless=>无损, hires=>Hi-Res, jyeffect => 高清环绕声, sky => 沉浸环绕声, dolby => 杜比全景声, jymaster => 超清母带
+        
     },
 
     // ===== 获取歌词的API =====
     musicLyricApi: {
-        baseUrl: "https://zm.wwoyun.cn/lyric"
+        baseUrl: "https://ncmapi.nwely.top/lyric"
     },
 
     
