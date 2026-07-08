@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nwely（陌筏）の 个人主页</title>
     <meta name="keywords" content="陌筏, nwely, magic, new_weilai, new-weilai, 魔法, 新未来">
-    <meta name="referrer" content="no-referrer">   <!-- 防止 403 错误 -->
+    <meta name="referrer" content="no-referrer">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* ===== 全局样式 ===== */
+        /* ===== 全局样式（完整）===== */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; }
         body {
             min-height: 100vh;
@@ -40,7 +40,6 @@
         body.dark-mode::before {
             background: rgba(0, 0, 0, 0.3);
         }
-
         .home-card {
             max-width: 1100px;
             width: 100%;
@@ -60,63 +59,14 @@
             border-color: rgba(100, 100, 120, 0.5);
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
         }
-
-        .profile-section { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: flex-start; 
-            gap: 15px; 
-            margin-bottom: 25px; 
-        }
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            width: 100%;
-        }
-        .avatar {
-            width: 85px; height: 85px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid white;
-            box-shadow: 0 10px 20px rgba(0,20,40,0.2);
-            background: #b0c7de;
-        }
-        body.dark-mode .avatar {
-            border-color: #444;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
-        .name {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #1e2b3f;
-            text-shadow: 2px 2px 8px rgba(255,255,255,0.7);
-        }
-        body.dark-mode .name {
-            color: #e0e0f0;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-        }
-
-        .description-box {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.8);
-            border-radius: 20px;
-            padding: 15px 20px;
-            font-size: 1rem;
-            color: #1e3a5f;
-            box-shadow: inset 0 1px 4px white, 0 8px 12px rgba(0,20,30,0.1);
-            transition: all 0.3s ease;
-            line-height: 1.5;
-        }
-        body.dark-mode .description-box {
-            background: rgba(40, 40, 50, 0.4);
-            border-color: rgba(150, 150, 170, 0.5);
-            color: #d0d0e0;
-            box-shadow: inset 0 1px 4px rgba(255,255,255,0.1), 0 8px 12px rgba(0,0,0,0.3);
-        }
+        .profile-section { display: flex; flex-direction: column; align-items: flex-start; gap: 15px; margin-bottom: 25px; }
+        .profile-header { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; width: 100%; }
+        .avatar { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; border: 4px solid white; box-shadow: 0 10px 20px rgba(0,20,40,0.2); background: #b0c7de; }
+        body.dark-mode .avatar { border-color: #444; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .name { font-size: 2.2rem; font-weight: 700; color: #1e2b3f; text-shadow: 2px 2px 8px rgba(255,255,255,0.7); }
+        body.dark-mode .name { color: #e0e0f0; text-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
+        .description-box { width: 100%; background: rgba(255,255,255,0.4); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.8); border-radius: 20px; padding: 15px 20px; font-size: 1rem; color: #1e3a5f; box-shadow: inset 0 1px 4px white, 0 8px 12px rgba(0,20,30,0.1); transition: all 0.3s ease; line-height: 1.5; }
+        body.dark-mode .description-box { background: rgba(40,40,50,0.4); border-color: rgba(150,150,170,0.5); color: #d0d0e0; box-shadow: inset 0 1px 4px rgba(255,255,255,0.1), 0 8px 12px rgba(0,0,0,0.3); }
         .description-box p { margin-bottom: 10px; }
         .description-box a { color: #3a6ea5; text-decoration: none; }
         .description-box a:hover { text-decoration: underline; }
@@ -127,531 +77,119 @@
         body.dark-mode .description-box pre { background: rgba(255,255,255,0.1); }
         .description-box ul, .description-box ol { margin-left: 20px; margin-bottom: 10px; }
 
-        .hitokoto-panel {
-            background: rgba(255,255,255,0.4);
-            border-radius: 60px;
-            padding: 14px 28px;
-            margin-bottom: 30px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.8);
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: #1e3a5f;
-            box-shadow: inset 0 1px 4px white, 0 8px 12px rgba(0,20,30,0.1);
-            transition: all 0.3s ease;
-        }
-        body.dark-mode .hitokoto-panel {
-            background: rgba(40, 40, 50, 0.4);
-            border-color: rgba(150, 150, 170, 0.5);
-            color: #d0d0e0;
-            box-shadow: inset 0 1px 4px rgba(255,255,255,0.1), 0 8px 12px rgba(0,0,0,0.3);
-        }
-
+        .hitokoto-panel { background: rgba(255,255,255,0.4); border-radius: 60px; padding: 14px 28px; margin-bottom: 30px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.8); font-size: 1.2rem; font-weight: 500; color: #1e3a5f; box-shadow: inset 0 1px 4px white, 0 8px 12px rgba(0,20,30,0.1); transition: all 0.3s ease; }
+        body.dark-mode .hitokoto-panel { background: rgba(40,40,50,0.4); border-color: rgba(150,150,170,0.5); color: #d0d0e0; box-shadow: inset 0 1px 4px rgba(255,255,255,0.1), 0 8px 12px rgba(0,0,0,0.3); }
         .hitokoto-text { flex: 1; font-style: italic; padding-right: 20px; }
-        .hitokoto-from {
-            font-size: 0.95rem;
-            color: #3e5e7e;
-            white-space: nowrap;
-            border-left: 2px solid #8ba3c7;
-            padding-left: 18px;
-            font-weight: 400;
-        }
-        body.dark-mode .hitokoto-from {
-            color: #a0a0c0;
-            border-left-color: #6a6a8a;
-        }
+        .hitokoto-from { font-size: 0.95rem; color: #3e5e7e; white-space: nowrap; border-left: 2px solid #8ba3c7; padding-left: 18px; font-weight: 400; }
+        body.dark-mode .hitokoto-from { color: #a0a0c0; border-left-color: #6a6a8a; }
 
         .info-music-row { display: flex; gap: 24px; margin-bottom: 30px; flex-wrap: wrap; }
-        .weather-time-card {
-            flex: 1.2;
-            min-width: 240px;
-            background: rgba(255,255,255,0.5);
-            backdrop-filter: blur(5px);
-            border-radius: 34px;
-            padding: 22px 25px;
-            border: 1px solid rgba(255,255,255,0.9);
-            box-shadow: 0 15px 25px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-        }
-        body.dark-mode .weather-time-card {
-            background: rgba(40, 40, 55, 0.5);
-            border-color: rgba(150, 150, 180, 0.5);
-            box-shadow: 0 15px 25px rgba(0,0,0,0.3);
-        }
-
+        .weather-time-card { flex: 1.2; min-width: 240px; background: rgba(255,255,255,0.5); backdrop-filter: blur(5px); border-radius: 34px; padding: 22px 25px; border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 15px 25px rgba(0,0,0,0.05); transition: all 0.3s ease; }
+        body.dark-mode .weather-time-card { background: rgba(40,40,55,0.5); border-color: rgba(150,150,180,0.5); box-shadow: 0 15px 25px rgba(0,0,0,0.3); }
         .weather-info { display: flex; align-items: center; gap: 10px; font-size: 1.8rem; font-weight: 600; color: #1a2b41; margin-bottom: 12px; }
         body.dark-mode .weather-info { color: #d0d0f0; }
         .weather-info i { font-size: 2.2rem; color: #3a6ea5; }
         body.dark-mode .weather-info i { color: #7a9ac5; }
-        .weather-desc {
-            font-size: 1.1rem;
-            font-weight: 400;
-            background: rgba(255,255,255,0.3);
-            padding: 4px 12px;
-            border-radius: 40px;
-        }
-        body.dark-mode .weather-desc {
-            background: rgba(80,80,100,0.3);
-            color: #ccc;
-        }
-
+        .weather-desc { font-size: 1.1rem; font-weight: 400; background: rgba(255,255,255,0.3); padding: 4px 12px; border-radius: 40px; }
+        body.dark-mode .weather-desc { background: rgba(80,80,100,0.3); color: #ccc; }
         .time-block { font-size: 2.5rem; font-weight: 700; color: #0f263b; }
         body.dark-mode .time-block { color: #e0e0f0; }
         .time-block .date { font-size: 1.1rem; font-weight: 500; color: #2e4b6e; margin-top: 6px; }
         body.dark-mode .time-block .date { color: #a0a0c0; }
 
         /* 音乐播放器 */
-        .music-player-card {
-            flex: 2;
-            min-width: 300px;
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(8px);
-            border-radius: 38px;
-            padding: 18px 20px;
-            border: 1px solid rgba(255,255,255,0.4);
-            box-shadow: 0 20px 30px rgba(0,10,20,0.2);
-            color: white;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        body.dark-mode .music-player-card {
-            background: rgba(20, 20, 30, 0.3);
-            border-color: rgba(150,150,180,0.3);
-        }
-        .player-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-        .player-header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .music-player-card { flex: 2; min-width: 300px; background: rgba(0,0,0,0.2); backdrop-filter: blur(8px); border-radius: 38px; padding: 18px 20px; border: 1px solid rgba(255,255,255,0.4); box-shadow: 0 20px 30px rgba(0,10,20,0.2); color: white; transition: all 0.3s ease; position: relative; }
+        body.dark-mode .music-player-card { background: rgba(20,20,30,0.3); border-color: rgba(150,150,180,0.3); }
+        .player-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+        .player-header-left { display: flex; align-items: center; gap: 12px; }
         .player-header-left i { font-size: 1.8rem; color: #d9edff; }
         body.dark-mode .player-header-left i { color: #aac; }
-        .player-header-left span {
-            font-weight: 600;
-            font-size: 1.2rem;
-            background: rgba(255,255,255,0.2);
-            padding: 6px 18px;
-            border-radius: 40px;
-        }
-        .add-song-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 1.2rem;
-        }
-        .add-song-btn:hover {
-            background: rgba(255,255,255,0.4);
-            transform: scale(1.1);
-        }
+        .player-header-left span { font-weight: 600; font-size: 1.2rem; background: rgba(255,255,255,0.2); padding: 6px 18px; border-radius: 40px; }
+        .add-song-btn { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; font-size: 1.2rem; }
+        .add-song-btn:hover { background: rgba(255,255,255,0.4); transform: scale(1.1); }
 
-        /* 添加面板（补全样式） */
-        .add-panel {
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 16px;
-            margin-bottom: 16px;
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: background 0.3s ease;
-        }
-        body.dark-mode .add-panel {
-            background: rgba(0, 0, 0, 0.5);
-        }
-        .add-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-            padding-bottom: 10px;
-        }
-        body.dark-mode .add-tabs {
-            border-bottom-color: rgba(255,255,255,0.2);
-        }
-        .add-tab {
-            padding: 5px 15px;
-            border-radius: 30px;
-            cursor: pointer;
-            background: rgba(0, 0, 0, 0.1);
-            transition: all 0.2s;
-        }
-        body.dark-mode .add-tab {
-            background: rgba(255,255,255,0.1);
-        }
-        .add-tab.active {
-            background: rgba(0, 0, 0, 0.2);
-            font-weight: 600;
-        }
-        body.dark-mode .add-tab.active {
-            background: rgba(255,255,255,0.3);
-        }
-        .add-tab:hover {
-            background: rgba(0, 0, 0, 0.15);
-        }
-        body.dark-mode .add-tab:hover {
-            background: rgba(255,255,255,0.2);
-        }
+        .add-panel { background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); border-radius: 30px; padding: 16px; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.2); transition: background 0.3s ease; }
+        body.dark-mode .add-panel { background: rgba(0,0,0,0.5); }
+        .add-tabs { display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.2); padding-bottom: 10px; }
+        body.dark-mode .add-tabs { border-bottom-color: rgba(255,255,255,0.2); }
+        .add-tab { padding: 5px 15px; border-radius: 30px; cursor: pointer; background: rgba(0,0,0,0.1); transition: all 0.2s; }
+        body.dark-mode .add-tab { background: rgba(255,255,255,0.1); }
+        .add-tab.active { background: rgba(0,0,0,0.2); font-weight: 600; }
+        body.dark-mode .add-tab.active { background: rgba(255,255,255,0.3); }
+        .add-tab:hover { background: rgba(0,0,0,0.15); }
+        body.dark-mode .add-tab:hover { background: rgba(255,255,255,0.2); }
 
-        .id-add-panel {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        .id-add-panel input {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(0,0,0,0.2);
-            border-radius: 30px;
-            padding: 8px 16px;
-            color: #1e3a5f;
-            font-size: 0.9rem;
-            outline: none;
-        }
-        body.dark-mode .id-add-panel input {
-            background: rgba(255,255,255,0.2);
-            border-color: rgba(255,255,255,0.3);
-            color: white;
-        }
-        .id-add-panel input::placeholder {
-            color: rgba(0,0,0,0.4);
-        }
-        body.dark-mode .id-add-panel input::placeholder {
-            color: rgba(255,255,255,0.5);
-        }
-        .id-add-panel button {
-            background: rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(0,0,0,0.2);
-            border-radius: 30px;
-            padding: 8px 18px;
-            color: #1e3a5f;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-weight: 600;
-        }
-        body.dark-mode .id-add-panel button {
-            background: rgba(255,255,255,0.2);
-            border-color: rgba(255,255,255,0.3);
-            color: white;
-        }
-        .id-add-panel button:hover {
-            background: rgba(0, 0, 0, 0.2);
-        }
-        body.dark-mode .id-add-panel button:hover {
-            background: rgba(255,255,255,0.3);
-        }
+        .id-add-panel { display: flex; gap: 10px; align-items: center; }
+        .id-add-panel input { flex: 1; background: rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.2); border-radius: 30px; padding: 8px 16px; color: #1e3a5f; font-size: 0.9rem; outline: none; }
+        body.dark-mode .id-add-panel input { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); color: white; }
+        .id-add-panel input::placeholder { color: rgba(0,0,0,0.4); }
+        body.dark-mode .id-add-panel input::placeholder { color: rgba(255,255,255,0.5); }
+        .id-add-panel button { background: rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.2); border-radius: 30px; padding: 8px 18px; color: #1e3a5f; cursor: pointer; transition: all 0.2s ease; font-weight: 600; }
+        body.dark-mode .id-add-panel button { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); color: white; }
+        .id-add-panel button:hover { background: rgba(0,0,0,0.2); }
+        body.dark-mode .id-add-panel button:hover { background: rgba(255,255,255,0.3); }
 
-        .search-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .search-input-group {
-            display: flex;
-            gap: 10px;
-        }
-        .search-input-group input {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(0,0,0,0.2);
-            border-radius: 30px;
-            padding: 8px 16px;
-            color: #1e3a5f;
-            font-size: 0.9rem;
-            outline: none;
-        }
-        body.dark-mode .search-input-group input {
-            background: rgba(255,255,255,0.2);
-            border-color: rgba(255,255,255,0.3);
-            color: white;
-        }
-        .search-input-group button {
-            background: rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(0,0,0,0.2);
-            border-radius: 30px;
-            padding: 8px 20px;
-            color: #1e3a5f;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        body.dark-mode .search-input-group button {
-            background: rgba(255,255,255,0.2);
-            border-color: rgba(255,255,255,0.3);
-            color: white;
-        }
-        .search-input-group button:hover {
-            background: rgba(0, 0, 0, 0.2);
-        }
-        body.dark-mode .search-input-group button:hover {
-            background: rgba(255,255,255,0.3);
-        }
-        .search-results {
-            max-height: 200px;
-            overflow-y: auto;
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 20px;
-            padding: 8px;
-        }
-        body.dark-mode .search-results {
-            background: rgba(0,0,0,0.3);
-        }
-        .search-result-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px 12px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .search-result-item:hover {
-            background: rgba(0, 0, 0, 0.15);
-        }
-        body.dark-mode .search-result-item:hover {
-            background: rgba(255,255,255,0.15);
-        }
-        .search-result-item .song-info {
-            flex: 1;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .search-result-item .song-info .song-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-        .search-result-item .song-info .song-artist {
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
-        .search-result-item .add-btn {
-            background: rgba(0, 0, 0, 0.1);
-            border: none;
-            border-radius: 20px;
-            padding: 4px 12px;
-            color: #1e3a5f;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.2s;
-            margin-left: 10px;
-        }
-        body.dark-mode .search-result-item .add-btn {
-            background: rgba(255,255,255,0.2);
-            color: white;
-        }
-        .search-result-item .add-btn:hover {
-            background: rgba(0, 0, 0, 0.2);
-        }
-        body.dark-mode .search-result-item .add-btn:hover {
-            background: rgba(255,255,255,0.3);
-        }
+        .search-panel { display: flex; flex-direction: column; gap: 15px; }
+        .search-input-group { display: flex; gap: 10px; }
+        .search-input-group input { flex: 1; background: rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.2); border-radius: 30px; padding: 8px 16px; color: #1e3a5f; font-size: 0.9rem; outline: none; }
+        body.dark-mode .search-input-group input { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); color: white; }
+        .search-input-group button { background: rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.2); border-radius: 30px; padding: 8px 20px; color: #1e3a5f; cursor: pointer; font-weight: 600; }
+        body.dark-mode .search-input-group button { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); color: white; }
+        .search-input-group button:hover { background: rgba(0,0,0,0.2); }
+        body.dark-mode .search-input-group button:hover { background: rgba(255,255,255,0.3); }
+        .search-results { max-height: 200px; overflow-y: auto; background: rgba(0,0,0,0.1); border-radius: 20px; padding: 8px; }
+        body.dark-mode .search-results { background: rgba(0,0,0,0.3); }
+        .search-result-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-radius: 30px; cursor: pointer; transition: background 0.2s; }
+        .search-result-item:hover { background: rgba(0,0,0,0.15); }
+        body.dark-mode .search-result-item:hover { background: rgba(255,255,255,0.15); }
+        .search-result-item .song-info { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .search-result-item .song-info .song-name { font-weight: 600; font-size: 0.95rem; }
+        .search-result-item .song-info .song-artist { font-size: 0.8rem; opacity: 0.7; }
+        .search-result-item .add-btn { background: rgba(0,0,0,0.1); border: none; border-radius: 20px; padding: 4px 12px; color: #1e3a5f; cursor: pointer; font-size: 0.8rem; transition: all 0.2s; margin-left: 10px; }
+        body.dark-mode .search-result-item .add-btn { background: rgba(255,255,255,0.2); color: white; }
+        .search-result-item .add-btn:hover { background: rgba(0,0,0,0.2); }
+        body.dark-mode .search-result-item .add-btn:hover { background: rgba(255,255,255,0.3); }
 
         /* 歌词区域 */
-        .now-playing {
-            background: rgba(255,255,255,0.1);
-            border-radius: 30px;
-            padding: 16px;
-            margin-bottom: 20px;
-        }
-        .song-title {
-            font-weight: 700;
-            font-size: 1.25rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .song-artist {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin: 4px 0 8px;
-        }
-        .lyrics-box {
-            background: rgba(0,0,0,0.25);
-            border-radius: 20px;
-            padding: 10px 15px;
-            margin: 12px 0;
-            font-size: 0.9rem;
-            min-height: 80px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        .lyric-line {
-            padding: 4px 0;
-            transition: all 0.2s;
-            text-align: center;
-            opacity: 0.7;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-        .lyric-line.current {
-            opacity: 1;
-            font-weight: 600;
-            color: #fff;
-            text-shadow: 0 0 5px rgba(255,255,255,0.5);
-            font-size: 1rem;
-        }
-        .lyric-line.prev, .lyric-line.next {
-            font-size: 0.85rem;
-        }
-        .lyrics-placeholder {
-            text-align: center;
-            opacity: 0.5;
-            padding: 10px;
-        }
+        .now-playing { background: rgba(255,255,255,0.1); border-radius: 30px; padding: 16px; margin-bottom: 20px; }
+        .song-title { font-weight: 700; font-size: 1.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .song-artist { font-size: 0.9rem; opacity: 0.8; margin: 4px 0 8px; }
+        .lyrics-box { background: rgba(0,0,0,0.25); border-radius: 20px; padding: 10px 15px; margin: 12px 0; font-size: 0.9rem; min-height: 80px; display: flex; flex-direction: column; justify-content: center; border: 1px solid rgba(255,255,255,0.2); }
+        .lyric-line { padding: 4px 0; transition: all 0.2s; text-align: center; opacity: 0.7; white-space: pre-wrap; word-break: break-word; }
+        .lyric-line.current { opacity: 1; font-weight: 600; color: #fff; text-shadow: 0 0 5px rgba(255,255,255,0.5); font-size: 1rem; }
+        .lyric-line.prev, .lyric-line.next { font-size: 0.85rem; }
+        .lyrics-placeholder { text-align: center; opacity: 0.5; padding: 10px; }
 
-        .controls {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 16px 0 10px;
-            padding: 0 10px;
-        }
-        .controls i {
-            font-size: 1.9rem;
-            cursor: pointer;
-            color: white;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
-            transition: transform 0.2s;
-        }
+        .controls { display: flex; align-items: center; justify-content: space-between; margin: 16px 0 10px; padding: 0 10px; }
+        .controls i { font-size: 1.9rem; cursor: pointer; color: white; text-shadow: 0 2px 5px rgba(0,0,0,0.3); transition: transform 0.2s; }
         .controls i:active { transform: scale(0.9); }
         .play-pause { font-size: 2.8rem !important; }
-        .play-mode-icon {
-            font-size: 1.8rem;
-        }
+        .play-mode-icon { font-size: 1.8rem; }
 
-        .playlist {
-            background: rgba(0,0,0,0.2);
-            border-radius: 28px;
-            padding: 12px 8px;
-            max-height: 150px;
-            overflow-y: auto;
-        }
-        .playlist-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 15px;
-            border-radius: 30px;
-            cursor: pointer;
-            color: #f0f4ff;
-            position: relative;
-        }
-        .playlist-item.active {
-            background: rgba(255,255,255,0.25);
-            font-weight: 600;
-        }
-        .playlist-item:hover {
-            background: rgba(255,255,255,0.15);
-        }
-        .playlist-index {
-            width: 24px;
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-        .song-info {
-            flex: 1;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .like-btn {
-            color: #ff6b6b;
-            margin: 0 5px;
-            font-size: 1.1rem;
-        }
-        .menu-btn {
-            font-size: 1.2rem;
-            opacity: 0.7;
-            cursor: pointer;
-            padding: 0 5px;
-        }
-        .menu-btn:hover {
-            opacity: 1;
-        }
-        .menu-dropdown {
-            position: absolute;
-            right: 0;
-            top: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(5px);
-            border-radius: 10px;
-            padding: 5px 0;
-            z-index: 10;
-            min-width: 100px;
-        }
-        .menu-dropdown button {
-            background: none;
-            border: none;
-            color: white;
-            padding: 8px 15px;
-            width: 100%;
-            text-align: left;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-        .menu-dropdown button:hover {
-            background: rgba(255,255,255,0.2);
-        }
+        .playlist { background: rgba(0,0,0,0.2); border-radius: 28px; padding: 12px 8px; max-height: 150px; overflow-y: auto; }
+        .playlist-item { display: flex; align-items: center; gap: 10px; padding: 8px 15px; border-radius: 30px; cursor: pointer; color: #f0f4ff; position: relative; }
+        .playlist-item.active { background: rgba(255,255,255,0.25); font-weight: 600; }
+        .playlist-item:hover { background: rgba(255,255,255,0.15); }
+        .playlist-index { width: 24px; font-size: 0.9rem; opacity: 0.7; }
+        .song-info { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .like-btn { color: #ff6b6b; margin: 0 5px; font-size: 1.1rem; }
+        .menu-btn { font-size: 1.2rem; opacity: 0.7; cursor: pointer; padding: 0 5px; }
+        .menu-btn:hover { opacity: 1; }
+        .menu-dropdown { position: absolute; right: 0; top: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); border-radius: 10px; padding: 5px 0; z-index: 10; min-width: 100px; }
+        .menu-dropdown button { background: none; border: none; color: white; padding: 8px 15px; width: 100%; text-align: left; cursor: pointer; font-size: 0.9rem; }
+        .menu-dropdown button:hover { background: rgba(255,255,255,0.2); }
 
-        /* 抽屉样式 */
         .drawer-wrapper { margin-top: 20px; }
-        .drawer-handle {
-            text-align: center;
-            padding: 8px 0 4px;
-            cursor: pointer;
-            color: #1e3a5f;
-            font-size: 1.3rem;
-            background: rgba(255,255,255,0.3);
-            border-radius: 40px;
-            width: 180px;
-            margin: 0 auto;
-            backdrop-filter: blur(3px);
-            border: 1px solid rgba(255,255,255,0.8);
-            transition: all 0.3s ease;
-        }
-        body.dark-mode .drawer-handle {
-            color: #ccc;
-            background: rgba(40,40,50,0.3);
-            border-color: rgba(150,150,180,0.5);
-        }
+        .drawer-handle { text-align: center; padding: 8px 0 4px; cursor: pointer; color: #1e3a5f; font-size: 1.3rem; background: rgba(255,255,255,0.3); border-radius: 40px; width: 180px; margin: 0 auto; backdrop-filter: blur(3px); border: 1px solid rgba(255,255,255,0.8); transition: all 0.3s ease; }
+        body.dark-mode .drawer-handle { color: #ccc; background: rgba(40,40,50,0.3); border-color: rgba(150,150,180,0.5); }
         .drawer-handle:hover { background: rgba(255,255,255,0.6); }
         body.dark-mode .drawer-handle:hover { background: rgba(80,80,100,0.6); }
-        .drawer-content {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(16px);
-            border-radius: 38px;
-            padding: 0 22px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out, padding 0.3s ease, background 0.3s ease;
-            margin-top: 12px;
-            border: 1px solid rgba(255,255,255,0.5);
-        }
-        body.dark-mode .drawer-content {
-            background: rgba(30, 30, 40, 0.7);
-            border-color: rgba(100,100,120,0.5);
-        }
-        .drawer-content.open {
-            max-height: 800px;
-            padding: 22px 22px 28px;
-            overflow-y: auto;
-        }
+        .drawer-content { background: rgba(255,255,255,0.7); backdrop-filter: blur(16px); border-radius: 38px; padding: 0 22px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.3s ease, background 0.3s ease; margin-top: 12px; border: 1px solid rgba(255,255,255,0.5); }
+        body.dark-mode .drawer-content { background: rgba(30,30,40,0.7); border-color: rgba(100,100,120,0.5); }
+        .drawer-content.open { max-height: 800px; padding: 22px 22px 28px; overflow-y: auto; }
         .drawer-content.open::-webkit-scrollbar { width: 6px; }
         .drawer-content.open::-webkit-scrollbar-track { background: rgba(255,255,255,0.3); border-radius: 10px; }
-        .drawer-content.open::-webkit-scrollbar-thumb { background: rgba(46, 90, 136, 0.4); border-radius: 10px; }
+        .drawer-content.open::-webkit-scrollbar-thumb { background: rgba(46,90,136,0.4); border-radius: 10px; }
         body.dark-mode .drawer-content.open::-webkit-scrollbar-thumb { background: rgba(100,100,150,0.6); }
 
         .category-section { margin-bottom: 28px; }
@@ -662,36 +200,10 @@
         body.dark-mode .category-name { color: #d0d0e0; }
         .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
 
-        .drawer-card {
-            display: flex;
-            align-items: center;
-            background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(5px);
-            border-radius: 20px;
-            padding: 16px 18px;
-            text-decoration: none;
-            color: #1e3a5f;
-            border-left: 6px solid #3a6ea5;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.9);
-            border-left-width: 6px;
-        }
-        body.dark-mode .drawer-card {
-            background: rgba(40, 40, 55, 0.8);
-            color: #e0e0f0;
-            border-left-color: #7a9ac5;
-            border-color: rgba(100,100,130,0.5);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
-        }
-        .drawer-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 25px rgba(0,0,0,0.1);
-            background: white;
-        }
-        body.dark-mode .drawer-card:hover {
-            background: rgba(60, 60, 80, 0.9);
-        }
+        .drawer-card { display: flex; align-items: center; background: rgba(255,255,255,0.8); backdrop-filter: blur(5px); border-radius: 20px; padding: 16px 18px; text-decoration: none; color: #1e3a5f; border-left: 6px solid #3a6ea5; box-shadow: 0 8px 15px rgba(0,0,0,0.05); transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.9); border-left-width: 6px; }
+        body.dark-mode .drawer-card { background: rgba(40,40,55,0.8); color: #e0e0f0; border-left-color: #7a9ac5; border-color: rgba(100,100,130,0.5); box-shadow: 0 8px 15px rgba(0,0,0,0.3); }
+        .drawer-card:hover { transform: translateY(-4px); box-shadow: 0 15px 25px rgba(0,0,0,0.1); background: white; }
+        body.dark-mode .drawer-card:hover { background: rgba(60,60,80,0.9); }
 
         .card-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; margin-right: 14px; flex-shrink: 0; }
         .card-icon i { font-size: 2rem; }
@@ -707,83 +219,17 @@
         .empty-drawer-tip { text-align: center; padding: 40px 20px; color: #6b8aad; }
         body.dark-mode .empty-drawer-tip { color: #a0a0c0; }
 
-        .footer-note {
-            text-align: center;
-            margin-top: 25px;
-            font-size: 0.9rem;
-            color: #3a5f7a;
-            opacity: 0.8;
-            border-top: 1px solid rgba(58,94,122,0.2);
-            padding-top: 15px;
-        }
-        body.dark-mode .footer-note {
-            color: #a0a0c0;
-            border-top-color: rgba(150,150,180,0.2);
-        }
+        .footer-note { text-align: center; margin-top: 25px; font-size: 0.9rem; color: #3a5f7a; opacity: 0.8; border-top: 1px solid rgba(58,94,122,0.2); padding-top: 15px; }
+        body.dark-mode .footer-note { color: #a0a0c0; border-top-color: rgba(150,150,180,0.2); }
 
-        .fixed-buttons {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-            z-index: 1000;
-        }
-        .fixed-btn {
-            width: 45px; height: 45px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.9);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: #1e3a5f;
-            font-size: 1.3rem;
-            transition: all 0.3s ease;
-        }
-        .fixed-btn:hover {
-            transform: scale(1.1);
-            background: white;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-        }
-        body.dark-mode .fixed-btn {
-            background: rgba(40,40,55,0.8);
-            border-color: rgba(150,150,180,0.5);
-            color: #e0e0f0;
-        }
+        .fixed-buttons { position: fixed; bottom: 20px; right: 20px; display: flex; gap: 10px; z-index: 1000; }
+        .fixed-btn { width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.8); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 4px 12px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; color: #1e3a5f; font-size: 1.3rem; transition: all 0.3s ease; }
+        .fixed-btn:hover { transform: scale(1.1); background: white; box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
+        body.dark-mode .fixed-btn { background: rgba(40,40,55,0.8); border-color: rgba(150,150,180,0.5); color: #e0e0f0; }
 
-        .greeting-toast {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            z-index: 2000;
-            border: 1px solid rgba(255,255,255,0.2);
-            animation: fadeInOut 7s ease-in-out forwards;
-            pointer-events: none;
-            white-space: nowrap;
-        }
-        body.dark-mode .greeting-toast {
-            background: rgba(30, 30, 40, 0.9);
-            border-color: rgba(150,150,180,0.3);
-        }
-        @keyframes fadeInOut {
-            0% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-            10% { opacity: 1; transform: translateX(-50%) translateY(0); }
-            90% { opacity: 1; transform: translateX(-50%) translateY(0); }
-            100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-        }
+        .greeting-toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); color: white; padding: 12px 24px; border-radius: 50px; font-size: 1.1rem; font-weight: 500; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 2000; border: 1px solid rgba(255,255,255,0.2); animation: fadeInOut 7s ease-in-out forwards; pointer-events: none; white-space: nowrap; }
+        body.dark-mode .greeting-toast { background: rgba(30,30,40,0.9); border-color: rgba(150,150,180,0.3); }
+        @keyframes fadeInOut { 0% { opacity: 0; transform: translateX(-50%) translateY(-10px); } 10% { opacity: 1; transform: translateX(-50%) translateY(0); } 90% { opacity: 1; transform: translateX(-50%) translateY(0); } 100% { opacity: 0; transform: translateX(-50%) translateY(-10px); } }
     </style>
     <script src="config.js"></script>
     <script src="hitokoto.js"></script>
@@ -843,12 +289,10 @@
                         <div class="add-tab" :class="{ active: addMode === 'id' }" @click="addMode = 'id'">ID添加</div>
                         <div class="add-tab" :class="{ active: addMode === 'search' }" @click="addMode = 'search'">搜索添加</div>
                     </div>
-
                     <div v-if="addMode === 'id'" class="id-add-panel">
                         <input type="text" v-model="newSongId" placeholder="输入歌曲ID" @keyup.enter="addSongById">
                         <button @click="addSongById">添加</button>
                     </div>
-
                     <div v-if="addMode === 'search'" class="search-panel">
                         <div class="search-input-group">
                             <input type="text" v-model="searchKeyword" placeholder="输入歌曲名或关键词" @keyup.enter="searchSongs">
@@ -871,7 +315,6 @@
                 <div class="now-playing">
                     <div class="song-title">{{ currentSong.name }}</div>
                     <div class="song-artist">{{ currentSong.artist }}</div>
-                    <!-- 歌词三行显示 -->
                     <div class="lyrics-box" v-if="lyricLines.length > 0">
                         <div class="lyric-line prev">{{ prevLine }}</div>
                         <div class="lyric-line current">{{ currentLine }}</div>
@@ -887,6 +330,7 @@
                     <i class="fas" :class="isPlaying ? 'fa-pause-circle' : 'fa-play-circle'" @click="togglePlay"></i>
                     <i class="fas fa-step-forward" @click="nextSong"></i>
                 </div>
+
                 <div class="playlist">
                     <div v-for="(track, idx) in playlist" :key="track.id" class="playlist-item" :class="{active: currentSong.id === track.id}" @click="playSelected(idx)">
                         <span class="playlist-index">{{ idx+1 }}</span>
@@ -1087,8 +531,8 @@
                         return '';
                     }
                 },
-                    methods: {
-                    // ===== 核心修改：合并自定义歌曲请求 =====
+                methods: {
+                    // ===== 核心：合并自定义歌曲请求 =====
                     async addCustomSongs() {
                         const custom = this.config.customSongs || [];
                         if (!custom.length) return;
@@ -1115,7 +559,6 @@
                                 console.error('批量获取歌曲详情失败', e);
                             }
                         }
-                        // 处理直接提供 URL 的自定义歌曲
                         custom.forEach(item => {
                             if (item.url && item.name && !this.playlist.some(s => s.url === item.url)) {
                                 this.playlist.push({
@@ -1129,7 +572,7 @@
                         });
                     },
 
-                    // ===== 获取播放 URL（加入超时控制） =====
+                    // ===== 播放URL（带超时）=====
                     async getSongUrl(songId) {
                         const api = this.config.musicUrlApi;
                         if (!api?.baseUrl) return null;
@@ -1150,7 +593,28 @@
                             return null;
                         }
                     },
-                    // ===== 原有方法 =====
+
+                    // ===== 喜欢 =====
+                    isLiked(songId) {
+                        return this.likedSongs.includes(songId);
+                    },
+                    toggleLike(songId) {
+                        if (this.isLiked(songId)) {
+                            this.likedSongs = this.likedSongs.filter(id => id !== songId);
+                        } else {
+                            this.likedSongs.push(songId);
+                        }
+                        localStorage.setItem('likedSongs', JSON.stringify(this.likedSongs));
+                    },
+
+                    // ===== 播放模式切换 =====
+                    togglePlayMode() {
+                        const modes = ['sequence', 'single', 'random'];
+                        const currentIndex = modes.indexOf(this.playMode);
+                        this.playMode = modes[(currentIndex + 1) % modes.length];
+                    },
+
+                    // ===== 其他原有方法（保持完整）=====
                     loadDescription() {
                         if (this.config.description) {
                             this.descriptionHtml = marked.parse(this.config.description);
@@ -1195,10 +659,8 @@
                             });
                             return map;
                         };
-
                         const lrcMap = parse(lrcText);
                         const tlyricMap = parse(tlyricText);
-
                         tlyricMap.forEach((value, key) => {
                             if (lrcMap.has(key)) {
                                 lrcMap.get(key).text += '  // ' + value.text;
@@ -1206,7 +668,6 @@
                                 lrcMap.set(key, { time: key, text: value.text });
                             }
                         });
-
                         const sorted = Array.from(lrcMap.values()).sort((a,b) => a.time - b.time);
                         return sorted;
                     },
@@ -1217,11 +678,9 @@
                             const res = await fetch(url);
                             const data = await res.json();
                             if (data.code !== 200) return null;
-
                             const lrcText = data.lrc?.lyric || '';
                             const tlyricText = data.tlyric?.lyric || '';
                             if (!lrcText && !tlyricText) return null;
-
                             this.lyricLines = this.parseLyricsToLines(lrcText, tlyricText);
                             if (this.audioElement) {
                                 const currentTime = this.audioElement.currentTime || 0;
@@ -1229,7 +688,6 @@
                             } else {
                                 this.currentLyricIndex = -1;
                             }
-
                             if (this.lyricLines.length === 0) {
                                 return lrcText || tlyricText || null;
                             }
@@ -1266,7 +724,6 @@
                             this.audioElement.pause();
                             this.isPlaying = false;
                         }
-
                         let audioUrl = null;
                         if (s.url) {
                             audioUrl = s.url;
@@ -1280,7 +737,6 @@
                             else this.currentLyrics = '✨ 暂无歌词';
                             audioUrl = url;
                         }
-
                         if (audioUrl) {
                             this.audioElement.src = audioUrl;
                             this.audioElement.load();
@@ -1388,29 +844,6 @@
                         this.playlist = mock.map((item, idx) => ({ ...item, id: item.id || idx+100 }));
                         if (this.playlist.length) this.selectTrack(0);
                     },
-                    addCustomSongs() {
-                        const custom = this.config.customSongs || [];
-                        if (!custom.length) return;
-                        custom.forEach(item => {
-                            if (item.id) {
-                                if (!this.playlist.some(s => s.id == item.id)) {
-                                    this.fetchSongDetail(item.id).then(song => {
-                                        if (song) this.playlist.push(song);
-                                    }).catch(() => {});
-                                }
-                            } else if (item.url && item.name) {
-                                if (!this.playlist.some(s => s.url === item.url)) {
-                                    this.playlist.push({
-                                        id: `custom-${Date.now()}-${Math.random()}`,
-                                        name: item.name,
-                                        artist: item.artist || '未知',
-                                        url: item.url,
-                                        lyric: '✨ 自定义歌曲'
-                                    });
-                                }
-                            }
-                        });
-                    },
                     async fetchSongDetail(id) {
                         const url = `${baseUrl}/song/detail?ids=${id}`;
                         try {
@@ -1429,23 +862,6 @@
                             console.error('获取歌曲详情失败', e);
                         }
                         return null;
-                    },
-                    async getSongUrl(songId) {
-                        const api = this.config.musicUrlApi;
-                        if (!api?.baseUrl) return null;
-                        const level = api.level || 'standard';
-                        const url = `${api.baseUrl}?id=${songId}&level=${level}`;
-                        try {
-                            const res = await fetch(url);
-                            const data = await res.json();
-                            if (data.code === 200 && data.data && data.data.length > 0) {
-                                return data.data[0].url;
-                            }
-                            return null;
-                        } catch (e) {
-                            console.error('获取播放URL失败', e);
-                            return null;
-                        }
                     },
                     async playSelected(idx) {
                         await this.selectTrack(idx);
@@ -1549,6 +965,46 @@
                         } else {
                             alert('未找到该歌曲，请检查ID');
                         }
+                    },
+                    downloadSong(song) {
+                        if (song.url) {
+                            const a = document.createElement('a');
+                            a.href = song.url;
+                            a.download = `${song.name} - ${song.artist}.mp3`;
+                            a.click();
+                        } else {
+                            this.getSongUrl(song.id).then(url => {
+                                if (url) {
+                                    const a = document.createElement('a');
+                                    a.href = url;
+                                    a.download = `${song.name} - ${song.artist}.mp3`;
+                                    a.click();
+                                } else {
+                                    alert('无法获取下载链接');
+                                }
+                            });
+                        }
+                        this.showMenuFor = null;
+                    },
+                    removeSong(index) {
+                        if (confirm('确定要从播放列表中移除这首歌吗？')) {
+                            if (this.songIndex === index) {
+                                this.nextSong();
+                                this.playlist.splice(index, 1);
+                                if (this.playlist.length === 0) {
+                                    this.currentSong = { id: 0, name: '未知歌曲', artist: '' };
+                                    this.currentLyrics = '✨ 暂无歌词';
+                                    this.audioElement.pause();
+                                    this.isPlaying = false;
+                                }
+                            } else {
+                                this.playlist.splice(index, 1);
+                                if (this.songIndex > index) {
+                                    this.songIndex--;
+                                }
+                            }
+                        }
+                        this.showMenuFor = null;
                     },
                     toggleDrawer() { this.drawerOpen = !this.drawerOpen; },
                     hasNextCategoryWithCards(i) {
